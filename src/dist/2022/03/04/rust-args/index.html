@@ -7,9 +7,10 @@
     <meta name="keywords" content="Rust 命令行参数, BinWan-Blogs">
     <meta name="description" content="官方文档 Args
 创建一个控制台项目
-12cargo new minigrepcd minigrep
+cargo new minigrep
+cd minigrep
 
-minigrep 能够接受两个命令行参数：文件名和要搜索的字符串。也就是说我们希望能够使用 cargo run、要搜索的字符串和被搜索">
+minigrep 能够接受两个命令行参数：文件名和要搜索的字符串。也就是说我们希望能够使用 cargo run、要搜索的字符串和被搜索的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -483,15 +484,21 @@ minigrep 能够接受两个命令行参数：文件名和要搜索的字符串�
             <div id="articleContent">
                 <p><a target="_blank" rel="noopener" href="https://github.com/rust-lang/book/blob/main/src/ch12-01-accepting-command-line-arguments.md">官方文档 Args</a></p>
 <p>创建一个控制台项目</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cargo new minigrep</span><br><span class="line"><span class="built_in">cd</span> minigrep</span><br></pre></td></tr></table></figure>
+<pre class="language-sh" data-language="sh"><code class="language-sh">cargo new minigrep
+cd minigrep</code></pre>
 
 <p>minigrep 能够接受两个命令行参数：文件名和要搜索的字符串。也就是说我们希望能够使用 cargo run、要搜索的字符串和被搜索的文件的路径来运行程序，像这样：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo run searchstring example-filename.txt</span><br></pre></td></tr></table></figure>
+<pre class="language-sh" data-language="sh"><code class="language-sh">cargo run searchstring example-filename.txt</code></pre>
 
 <p>读取参数值<br>为了确保 minigrep 能够获取传递给它的命令行参数的值，我们需要一个 Rust 标准库提供的函数，也就是 std::env::args。这个函数返回一个传递给程序的命令行参数的 迭代器（iterator）。我们会在 第十三章 全面的介绍它们。但是现在只需理解迭代器的两个细节：迭代器生成一系列的值，可以在迭代器上调用 collect 方法将其转换为一个集合，比如包含所有迭代器产生元素的 vector。</p>
 <p>使用示例 12-1 中的代码来读取任何传递给 minigrep 的命令行参数并将其收集到一个 vector 中。</p>
-<p>文件名: src&#x2F;main.rs</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::env;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">args</span>: <span class="type">Vec</span>&lt;<span class="type">String</span>&gt; = env::<span class="title function_ invoke__">args</span>().<span class="title function_ invoke__">collect</span>();</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文件名: src/main.rs</p>
+<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>env<span class="token punctuation">;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> args<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token namespace">env<span class="token punctuation">::</span></span><span class="token function">args</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <p>示例 12-1：将命令行参数收集到一个 vector 中并打印出来</p>
 <p>首先使用 use 语句来将 std::env 模块引入作用域以便可以使用它的 args 函数。注意 std::env::args 函数被嵌套进了两层模块中。正如 第七章 讲到的，当所需函数嵌套了多于一层模块时，通常将父模块引入作用域，而不是其自身。这便于我们利用 std::env 中的其他函数。这比增加了 use std::env::args; 后仅仅使用 args 调用函数要更明确一些，因为 args 容易被错认成一个定义于当前模块的函数。</p>
 <blockquote>
@@ -499,15 +506,40 @@ minigrep 能够接受两个命令行参数：文件名和要搜索的字符串�
 </blockquote>
 <p>在 main 函数的第一行，我们调用了 env::args，并立即使用 collect 来创建了一个包含迭代器所有值的 vector。collect 可以被用来创建很多类型的集合，所以这里显式注明 args 的类型来指定我们需要一个字符串 vector。虽然在 Rust 中我们很少会需要注明类型，然而 collect 是一个经常需要注明类型的函数，因为 Rust 不能推断出你想要什么类型的集合。</p>
 <p>最后，我们使用调试格式 :? 打印出 vector。让我们尝试分别用两种方式（不包含参数和包含参数）运行代码：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cargo run</span><br><span class="line">   Compiling minigrep v0.1.0 (file:///projects/minigrep)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> 0.61s</span><br><span class="line">     Running `target/debug/minigrep`</span><br><span class="line">[<span class="string">&quot;target/debug/minigrep&quot;</span>]</span><br><span class="line"></span><br><span class="line">cargo run needle haystack</span><br><span class="line">   Compiling minigrep v0.1.0 (file:///projects/minigrep)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> 1.57s</span><br><span class="line">     Running `target/debug/minigrep needle haystack`</span><br><span class="line">[<span class="string">&quot;target/debug/minigrep&quot;</span>, <span class="string">&quot;needle&quot;</span>, <span class="string">&quot;haystack&quot;</span>]</span><br></pre></td></tr></table></figure>
-<p>注意 vector 的第一个值是 “target&#x2F;debug&#x2F;minigrep”，它是我们二进制文件的名称。这与 C 中的参数列表的行为相匹配，让程序使用在执行时调用它们的名称。如果要在消息中打印它或者根据用于调用程序的命令行别名更改程序的行为，通常可以方便地访问程序名称，不过考虑到本章的目的，我们将忽略它并只保存所需的两个参数。</p>
+<pre class="language-sh" data-language="sh"><code class="language-sh">cargo run
+   Compiling minigrep v0.1.0 (file:///projects/minigrep)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.61s
+     Running `target/debug/minigrep`
+["target/debug/minigrep"]
+
+cargo run needle haystack
+   Compiling minigrep v0.1.0 (file:///projects/minigrep)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.57s
+     Running `target/debug/minigrep needle haystack`
+["target/debug/minigrep", "needle", "haystack"]</code></pre>
+<p>注意 vector 的第一个值是 “target/debug/minigrep”，它是我们二进制文件的名称。这与 C 中的参数列表的行为相匹配，让程序使用在执行时调用它们的名称。如果要在消息中打印它或者根据用于调用程序的命令行别名更改程序的行为，通常可以方便地访问程序名称，不过考虑到本章的目的，我们将忽略它并只保存所需的两个参数。</p>
 <p>将参数值保存进变量<br>打印出参数 vector 中的值展示了程序可以访问指定为命令行参数的值。现在需要将这两个参数的值保存进变量这样就可以在程序的余下部分使用这些值了。让我们如示例 12-2 这样做：</p>
-<p>文件名: src&#x2F;main.rs</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::env;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">args</span>: <span class="type">Vec</span>&lt;<span class="type">String</span>&gt; = env::<span class="title function_ invoke__">args</span>().<span class="title function_ invoke__">collect</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">query</span> = &amp;args[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">filename</span> = &amp;args[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Searching for &#123;&#125;&quot;</span>, query);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;In file &#123;&#125;&quot;</span>, filename);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文件名: src/main.rs</p>
+<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span></span>env<span class="token punctuation">;</span>
+
+<span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> args<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token namespace">env<span class="token punctuation">::</span></span><span class="token function">args</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">let</span> query <span class="token operator">=</span> <span class="token operator">&amp;</span>args<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> filename <span class="token operator">=</span> <span class="token operator">&amp;</span>args<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"Searching for {}"</span><span class="token punctuation">,</span> query<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"In file {}"</span><span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
 <p>示例 12-2：创建变量来存放查询参数和文件名参数</p>
 <p>正如之前打印出 vector 时所所看到的，程序的名称占据了 vector 的第一个值 args[0]，所以我们从索引 1 开始。minigrep 获取的第一个参数是需要搜索的字符串，所以将其将第一个参数的引用存放在变量 query 中。第二个参数将是文件名，所以将第二个参数的引用放入变量 filename 中。</p>
 <p>我们将临时打印出这些变量的值来证明代码如我们期望的那样工作。使用参数 test 和 sample.txt 再次运行这个程序：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cargo run <span class="built_in">test</span> sample.txt</span><br><span class="line">   Compiling minigrep v0.1.0 (file:///projects/minigrep)</span><br><span class="line">    Finished dev [unoptimized + debuginfo] target(s) <span class="keyword">in</span> 0.0s</span><br><span class="line">     Running `target/debug/minigrep <span class="built_in">test</span> sample.txt`</span><br><span class="line">Searching <span class="keyword">for</span> <span class="built_in">test</span></span><br><span class="line">In file sample.txt</span><br></pre></td></tr></table></figure>
+<pre class="language-sh" data-language="sh"><code class="language-sh">cargo run test sample.txt
+   Compiling minigrep v0.1.0 (file:///projects/minigrep)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.0s
+     Running `target/debug/minigrep test sample.txt`
+Searching for test
+In file sample.txt</code></pre>
 <p>好的，它可以工作！我们将所需的参数值保存进了对应的变量中。之后会增加一些错误处理来应对类似用户没有提供参数的情况，不过现在我们将忽略他们并开始增加读取文件功能。</p>
 
                 
@@ -591,132 +623,6 @@ minigrep 能够接受两个命令行参数：文件名和要搜索的字符串�
 
                 </div>
             </div>
-            
-                <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
-    }
-
-    #reward .reward-link {
-        font-size: 1.4rem;
-        line-height: 38px;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .close:hover {
-        color: #ef5350;
-        transform: scale(1.3);
-        -moz-transform:scale(1.3);
-        -webkit-transform:scale(1.3);
-        -o-transform:scale(1.3);
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-content ul {
-        padding-left: 0 !important;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff !important;
-        background-color: #22AB38 !important;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff !important;
-        background-color: #019FE8 !important;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fas fa-times"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('.tabs').tabs();
-    });
-</script>
-
             
         </div>
     </div>

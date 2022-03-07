@@ -8,13 +8,13 @@ categories:
 
 
 创建一个控制台项目
-``` sh
+``` bash
 cargo new minigrep
 cd minigrep
 ```
 
 minigrep 能够接受两个命令行参数：文件名和要搜索的字符串。也就是说我们希望能够使用 cargo run、要搜索的字符串和被搜索的文件的路径来运行程序，像这样：
-``` sh
+``` bash
 cargo run searchstring example-filename.txt
 ```
 
@@ -44,7 +44,7 @@ fn main() {
 
 最后，我们使用调试格式 :? 打印出 vector。让我们尝试分别用两种方式（不包含参数和包含参数）运行代码：
 
-``` sh
+``` bash
 cargo run
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished dev [unoptimized + debuginfo] target(s) in 0.61s
@@ -83,7 +83,7 @@ fn main() {
 
 我们将临时打印出这些变量的值来证明代码如我们期望的那样工作。使用参数 test 和 sample.txt 再次运行这个程序：
 
-``` sh
+``` bash
 cargo run test sample.txt
    Compiling minigrep v0.1.0 (file:///projects/minigrep)
     Finished dev [unoptimized + debuginfo] target(s) in 0.0s
