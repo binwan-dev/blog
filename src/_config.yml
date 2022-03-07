@@ -4,7 +4,7 @@
 
 # Site
 title: BinWan-Blogs
-subtitle: ''
+subtitle: '向往的远方'
 description: '向往的远方'
 keywords:
 author: Bin Wan
@@ -45,7 +45,7 @@ relative_link: false
 future: true
 highlight:
   enable: false
-  line_number: true
+  line_number: false
   auto_detect: false
   tab_replace: ''
   wrap: true
@@ -53,7 +53,7 @@ highlight:
 prismjs:
   enable: true
   preprocess: true
-  line_number: true
+  line_number: false
   tab_replace: ''
 
 # Home page setting
@@ -126,3 +126,13 @@ githubEmojis:
   inject: true
   styles:
   customEmojis:
+
+socialLink:
+  github:  https://github.com/binwan-dev
+  email: email@wanbin.tech
+  facebook: # https://www.facebook.com/xxx
+  twitter: # https://twitter.com/xxx
+  qq: 1655183054
+  weibo: # https://weibo.com/xxx
+  zhihu: # https://www.zhihu.com/xxx
+  rss: false # true、false
