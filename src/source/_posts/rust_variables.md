@@ -132,3 +132,4 @@ For more information about this error, try `rustc --explain E0308`.
 error: could not compile `variables` due to previous error
 ```
 
+[官方原文](https://doc.rust-lang.org/book/ch03-01-variables-and-mutability.html#shadowing)
