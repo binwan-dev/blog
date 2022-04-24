@@ -4,10 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Rust 变量, BinWan-Blogs">
-    <meta name="description" content="变量Rust 变量默认是无法改变的。这是Rust推动的特点之一，这样可以利用Rust提供的安全、易并发的方式来编写代码。不过我们也可以选择让变量可变。
-当变量不可变时，一旦将值绑定到变量上，就无法更改该值。例如以下示例
-首先创建一个项目 v">
+    <meta name="keywords" content="K8S 手动续期证书, BinWan-Blogs">
+    <meta name="description" content="使用 kubeadm 安装 kubernetes 集群非常方便，但是也有一个比较烦人的问题就是默认的证书有效期只有一年时间，所以需要考虑证书升级的问题，本文的演示集群版本为 v1.18.18 版本，不保证下面的操作对其他版本也适用，在操作之">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -19,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Rust 变量 | BinWan-Blogs</title>
+    <title>K8S 手动续期证书 | BinWan-Blogs</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -313,12 +311,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Rust 变量</h1>
+                    <h1 class="description center-align post-title">K8S 手动续期证书</h1>
                 </div>
             </div>
         </div>
@@ -442,8 +440,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Rust/" class="post-category">
-                                Rust
+                            <a href="/categories/Kubenetes/" class="post-category">
+                                Kubenetes
                             </a>
                         
                     </div>
@@ -455,7 +453,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-07
+                    2022-04-24
                 </div>
                 
 
@@ -479,93 +477,70 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>Rust 变量默认是无法改变的。这是Rust推动的特点之一，这样可以利用Rust提供的安全、易并发的方式来编写代码。不过我们也可以选择让变量可变。</p>
-<p>当变量不可变时，一旦将值绑定到变量上，就无法更改该值。例如以下示例</p>
-<p>首先创建一个项目 variables </p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">cargo new variables</code></pre>
+                <p>使用 kubeadm 安装 kubernetes 集群非常方便，但是也有一个比较烦人的问题就是默认的证书有效期只有一年时间，所以需要考虑证书升级的问题，本文的演示集群版本为 v1.18.18 版本，不保证下面的操作对其他版本也适用，在操作之前一定要先对证书目录进行备份，防止操作错误进行回滚。本文主要介绍两种方式来更新集群证书。</p>
+<h2 id="手动更新证书"><a href="#手动更新证书" class="headerlink" title="手动更新证书"></a>手动更新证书</h2><p>由 kubeadm 生成的客户端证书默认只有一年有效期，我们可以通过 <code>check-expiration</code> 命令来检查证书是否过期：  </p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ kubeadm alpha certs check-expiration
+<span class="token punctuation">[</span>check-expiration<span class="token punctuation">]</span> Reading configuration from the cluster<span class="token punctuation">..</span>.
+<span class="token punctuation">[</span>check-expiration<span class="token punctuation">]</span> FYI: You can <span class="token function">look</span> at this config <span class="token function">file</span> with <span class="token string">'kubectl -n kube-system get cm kubeadm-config -oyaml'</span>
 
-<p>在 variables 文件夹中找到文件 src/main.rs</p>
-<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-	<span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-	<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"The value of x is: {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	x <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
-	<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"The value of x is: {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>保存后运行命令 <code>cargo run</code>。会得到以下报错信息：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ cargo run
-   Compiling variables v0.1.0 <span class="token punctuation">(</span>/Users/binwan/Documents/binwan-dev/rust-hello/variables<span class="token punctuation">)</span>
-error<span class="token punctuation">[</span>E0384<span class="token punctuation">]</span>: cannot assign twice to immutable variable <span class="token variable"><span class="token variable">`</span>x<span class="token variable">`</span></span>
- --<span class="token operator">&gt;</span> src/main.rs:4:2
-  <span class="token operator">|</span>
-<span class="token number">2</span> <span class="token operator">|</span>     <span class="token builtin class-name">let</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-  <span class="token operator">|</span>         -
-  <span class="token operator">|</span>         <span class="token operator">|</span>
-  <span class="token operator">|</span>         first assignment to <span class="token variable"><span class="token variable">`</span>x<span class="token variable">`</span></span>
-  <span class="token operator">|</span>         help: consider making this binding mutable: <span class="token variable"><span class="token variable">`</span>mut x<span class="token variable">`</span></span>
-<span class="token number">3</span> <span class="token operator">|</span>     println<span class="token operator">!</span><span class="token punctuation">(</span><span class="token string">"The value of x is: {}"</span>, x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token number">4</span> <span class="token operator">|</span>     x <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
-  <span class="token operator">|</span>     ^^^^^ cannot assign twice to immutable variable
+CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
+admin.conf                 Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:51 UTC   364d                                    no
+apiserver                  Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            ca                      no
+apiserver-etcd-client      Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            etcd-ca                 no
+apiserver-kubelet-client   Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            ca                      no
+controller-manager.conf    Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:51 UTC   364d                                    no
+etcd-healthcheck-client    Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:45 UTC   364d            etcd-ca                 no
+etcd-peer                  Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:45 UTC   364d            etcd-ca                 no
+etcd-server                Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:45 UTC   364d            etcd-ca                 no
+front-proxy-client         Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            front-proxy-ca          no
+scheduler.conf             Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:51 UTC   364d                                    no
 
-For <span class="token function">more</span> information about this error, try <span class="token variable"><span class="token variable">`</span>rustc --explain E0384<span class="token variable">`</span></span><span class="token builtin class-name">.</span>
-error: could not compile <span class="token variable"><span class="token variable">`</span>variables<span class="token variable">`</span></span> due to previous error</code></pre>
+CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
+ca                      Apr <span class="token number">20</span>, <span class="token number">2031</span> <span class="token number">10</span>:49 UTC   8y              no
+etcd-ca                 Apr <span class="token number">20</span>, <span class="token number">2031</span> <span class="token number">10</span>:49 UTC   8y              no
+front-proxy-ca          Apr <span class="token number">20</span>, <span class="token number">2031</span> <span class="token number">10</span>:49 UTC   8y              no</code></pre>
+<p>该命令显示 /etc/kubernetes/pki 文件夹中的客户端证书以及 kubeadm 使用的 KUBECONFIG 文件中嵌入的客户端证书的到期时间/剩余时间。</p>
+<blockquote>
+<p><strong>NOTE</strong><br>kubeadm 不能管理由外部 CA 签名的证书，如果是外部得证书，需要自己手动去管理证书的更新。</p>
+</blockquote>
+<p>另外需要说明的是上面的列表中没有包含 kubelet.conf，因为 kubeadm 将 kubelet 配置为自动更新证书。</p>
+<p>另外 kubeadm 会在控制面板升级的时候自动更新所有证书，所以使用 kubeadm 搭建得集群最佳的做法是经常升级集群，这样可以确保你的集群保持最新状态并保持合理的安全性。但是对于实际的生产环境我们可能并不会去频繁得升级集群，所以这个时候我们就需要去手动更新证书。</p>
+<p>要手动更新证书也非常方便，我们只需要通过 kubeadm alpha certs renew 命令即可更新你的证书，这个命令用 CA（或者 front-proxy-CA ）证书和存储在 /etc/kubernetes/pki 中的密钥执行更新。</p>
+<blockquote>
+<p><strong>NOTE</strong><br>如果是高可用集群，需要在所有Master节点上都要执行。</p>
+</blockquote>
+<h3 id="更新证书"><a href="#更新证书" class="headerlink" title="更新证书"></a>更新证书</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 默认地址为 /etc/kubernetes，使用时请注意替换为自己的kubenetes地址。</span>
+<span class="token comment"># 备份证书</span>
+$ <span class="token function">mkdir</span> /etc/kubernetes.bak 
+$ <span class="token function">cp</span> -r /etc/kubernetes/pki/ /etc/kubernetes.bak
+$ <span class="token function">cp</span> /etc/kubernetes/*.conf /etc/kubernetes.bak
 
-<p><code>cannot assign twice to immutable variable 'x'</code> 指示变量x不能被分配两次。<br>当我们尝试在代码中更改一个不可更改的值时，编译器将会提示错误，我们必须重视这个错误。如果代码的一部分假设某个值永远不会更改，而代码的另一部分更改该值，则代码的第一部分可能无法执行其设计的操作。这种错误很难在事后跟踪，特别是第二段代码更改该值时。</p>
-<p>可变形有时也是非常有用的，可以使代码编写起来更方便。Rust中可以通过添加 <code>mut</code> 在变量名称前面。添加该指示代码后变量将可以被更改。<br>例如以下示例：</p>
-<p>在文件 <code>src/main.rs</code> 中：</p>
-<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">let</span> <span class="token keyword">mut</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"The value of x is: {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    x <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
-    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"The value of x is: {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>运行代码 <code>cargo run</code> 后输出以下：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ cargo run
-   Compiling variables v0.1.0 <span class="token punctuation">(</span>/Users/binwan/Documents/binwan-dev/rust-hello/variables<span class="token punctuation">)</span>
-    Finished dev <span class="token punctuation">[</span>unoptimized + debuginfo<span class="token punctuation">]</span> target<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token number">0</span>.14s
-     Running <span class="token variable"><span class="token variable">`</span>target/debug/variables<span class="token variable">`</span></span>
-The value of x is: <span class="token number">5</span>
-The value of x is: <span class="token number">6</span></code></pre>
-<p>在使用更改值时，通常有许多因素需要考虑。例如，在使用大型数据结构时，使用 <code>mut</code> 就地更改要比复制和返回新实例更快。对于较小的数据结构，创建新实例并以更具函数式的编程风格编写可能更容易思考。</p>
-<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>和变量相似，常量也是声明后无法更改，但是它们之间又有一些不同。<br>常量是任何情况下都不能更改的，可以使用 <code>const</code> 代码声明一个常量，同时常量需要指定数据类型（例如：u32 等）。<br>常量只能设置为常量表达式，不能设置为运行时计算的结果。<br>例如：</p>
-<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">const</span> <span class="token constant">THREE_HOURS_IN_SECONDS</span><span class="token punctuation">:</span> <span class="token keyword">u32</span> <span class="token operator">=</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span> <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
+<span class="token comment"># 备份 etcd 数据目录</span>
+$ <span class="token function">cp</span> -r /var/lib/etcd /var/lib/etcd.bak
 
-<h2 id="重影（shadowing）"><a href="#重影（shadowing）" class="headerlink" title="重影（shadowing）"></a>重影（shadowing）</h2><p>变量重影可以申明一个同名的变量，并将前一变量的值重影。并且在作用域不同的情况下，可以局部重影。使用关键字 <code>let</code> 。<br>示例：src/main.rs</p>
-<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-	<span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
-	<span class="token keyword">let</span> x <span class="token operator">=</span> x <span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span>
-	<span class="token punctuation">{</span>
-		<span class="token keyword">let</span> x <span class="token operator">=</span> x <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
-		<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"The value of x is the inner scope is: {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-	<span class="token punctuation">}</span>
-	
-	<span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"The value of x is: {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
-<p>运行命令 <code>cargo run</code> 输出如下：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ cargo run
-   Compiling variables v0.1.0 <span class="token punctuation">(</span>/Users/binwan/Documents/binwan-dev/rust-hello/variables<span class="token punctuation">)</span>
-    Finished dev <span class="token punctuation">[</span>unoptimized + debuginfo<span class="token punctuation">]</span> target<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token keyword">in</span> <span class="token number">0</span>.12s
-     Running <span class="token variable"><span class="token variable">`</span>target/debug/variables<span class="token variable">`</span></span>
-The value of x is the inner scope is: <span class="token number">12</span>
-The value of x is: <span class="token number">6</span></code></pre>
-<p>可以看出在局部作用域的重影变量并没有改变全局的重影，这说明重影作用范围是可以局部的。<br>重影和变量标记不同，重影是可以更改变量类型的，而<code>mut</code>只能改变值但不能更改类型。<br>例如：</p>
-<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">let</span> spaces <span class="token operator">=</span> <span class="token string">"     "</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> spaces <span class="token operator">=</span> spaces<span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>这是被允许的。<br>当我们使用<code>mut</code> 时：</p>
-<pre class="language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">let</span> <span class="token keyword">mut</span> spaces <span class="token operator">=</span> <span class="token string">"      "</span><span class="token punctuation">;</span>
-spaces <span class="token operator">=</span> spaces<span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-<p>运行后会出现<code>mismatched types</code>错误。</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ cargo run
-   Compiling variables v0.1.0 <span class="token punctuation">(</span>file:///projects/variables<span class="token punctuation">)</span>
-error<span class="token punctuation">[</span>E0308<span class="token punctuation">]</span>: mismatched types
- --<span class="token operator">&gt;</span> src/main.rs:3:14
-  <span class="token operator">|</span>
-<span class="token number">3</span> <span class="token operator">|</span>     spaces <span class="token operator">=</span> spaces.len<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token operator">|</span>              ^^^^^^^^^^^^ expected <span class="token variable"><span class="token variable">`</span><span class="token operator">&amp;</span>str<span class="token variable">`</span></span>, found <span class="token variable"><span class="token variable">`</span>usize<span class="token variable">`</span></span>
+<span class="token comment"># 执行更新证书的命令</span>
+$ kubeadm alpha certs renew all --config<span class="token operator">=</span><span class="token punctuation">{</span>kubeadm.yaml<span class="token punctuation">}</span> <span class="token comment"># kubeadm.yaml 记得替换</span>
 
-For <span class="token function">more</span> information about this error, try <span class="token variable"><span class="token variable">`</span>rustc --explain E0308<span class="token variable">`</span></span><span class="token builtin class-name">.</span>
-error: could not compile <span class="token variable"><span class="token variable">`</span>variables<span class="token variable">`</span></span> due to previous error</code></pre>
+<span class="token comment"># 更新下 kubeconfig 文件</span>
+$ kubeadm init phase kubeconfig all --config <span class="token punctuation">{</span>kubeadm.yaml<span class="token punctuation">}</span> <span class="token comment"># kubeadm.yaml 记得替换</span>
 
-<p><a target="_blank" rel="noopener" href="https://doc.rust-lang.org/book/ch03-01-variables-and-mutability.html#shadowing">官方原文</a></p>
+<span class="token comment"># 替换 admin 配置文件</span>
+$ <span class="token function">mv</span> <span class="token environment constant">$HOME</span>/.kube/config <span class="token environment constant">$HOME</span>/.kube/config.old
+$ <span class="token function">cp</span> -i /etc/kubernetes/admin.conf <span class="token environment constant">$HOME</span>/.kube/config
+$ <span class="token function">chown</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -u<span class="token variable">)</span></span><span class="token builtin class-name">:</span><span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -g<span class="token variable">)</span></span> <span class="token environment constant">$HOME</span>/.kube/config
+
+<span class="token comment"># 重启 kube-apiserver、kube-controller、kube-scheduler、etcd 这4个容器. </span>
+$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>apiserver_container<span class="token punctuation">}</span>
+$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>controller_container<span class="token punctuation">}</span>
+$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>scheduler_container<span class="token punctuation">}</span>
+$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>etcd_container<span class="token punctuation">}</span></code></pre>
+<blockquote>
+<p><strong>NOTE</strong><br>以上命令需要在所有 Master 节点上运行。</p>
+</blockquote>
+<p>以上命令即可完成手动更新，使用一下命令来验证证书更新。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">echo</span> <span class="token operator">|</span> openssl s_client -showcerts -connect <span class="token number">127.0</span>.0.1:6443 -servername api <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null <span class="token operator">|</span> openssl x509 -noout -enddate
+<span class="token assign-left variable">notAfter</span><span class="token operator">=</span>Apr <span class="token number">24</span> 02:53:20 <span class="token number">2023</span> GMT</code></pre>
+<p>可以看到现在的有效期是一年过后的，证明已经更新成功了。</p>
 
                 
             </div>
@@ -592,7 +567,7 @@ error: could not compile <span class="token variable"><span class="token variabl
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://wanbin.tech/2022/03/07/rust-variables/">https://wanbin.tech/2022/03/07/rust-variables/</a>
+                    <a href="https://wanbin.tech/2022/04/24/k8s-cert-renew/">https://wanbin.tech/2022/04/24/k8s-cert-renew/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -675,9 +650,10 @@ error: could not compile <span class="token variable"><span class="token variabl
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/04/24/k8s-cert-renew/">
                     <div class="card-image">
@@ -695,9 +671,9 @@ error: could not compile <span class="token variable"><span class="token variabl
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-04-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -710,6 +686,7 @@ error: could not compile <span class="token variable"><span class="token variabl
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -720,13 +697,13 @@ error: could not compile <span class="token variable"><span class="token variabl
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/04/rust-args/">
+                <a href="/2022/03/07/rust-variables/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Rust 命令行参数">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Rust 变量">
                         
-                        <span class="card-title">Rust 命令行参数</span>
+                        <span class="card-title">Rust 变量</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -737,7 +714,7 @@ error: could not compile <span class="token variable"><span class="token variabl
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-07
                             </span>
                         <span class="publish-author">
                             
