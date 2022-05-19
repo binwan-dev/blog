@@ -4,8 +4,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="K8S 手动续期证书, BinWan-Blogs">
-    <meta name="description" content="使用 kubeadm 安装 kubernetes 集群非常方便，但是也有一个比较烦人的问题就是默认的证书有效期只有一年时间，所以需要考虑证书升级的问题，本文的演示集群版本为 v1.18.18 版本，不保证下面的操作对其他版本也适用，在操作之">
+    <meta name="keywords" content="K8S 集群更新, BinWan-Blogs">
+    <meta name="description" content="本文主要介绍使用 kubeadm 来对 kubernetes 进行升级更新。大致步骤如下：
+1. 查找并下载新版本控制节点和工作节点都需要执行
+
+NOTE注意：需要更新的版本和当前版本不能跳级，必须迭代升级。例如当前版本 1.17.x，只可">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>K8S 手动续期证书 | BinWan-Blogs</title>
+    <title>K8S 集群更新 | BinWan-Blogs</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -311,12 +314,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">K8S 手动续期证书</h1>
+                    <h1 class="description center-align post-title">K8S 集群更新</h1>
                 </div>
             </div>
         </div>
@@ -453,7 +456,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-04-24
+                    2022-05-19
                 </div>
                 
 
@@ -477,70 +480,51 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>使用 kubeadm 安装 kubernetes 集群非常方便，但是也有一个比较烦人的问题就是默认的证书有效期只有一年时间，所以需要考虑证书升级的问题，本文的演示集群版本为 v1.18.18 版本，不保证下面的操作对其他版本也适用，在操作之前一定要先对证书目录进行备份，防止操作错误进行回滚。本文主要介绍两种方式来更新集群证书。</p>
-<h2 id="手动更新证书"><a href="#手动更新证书" class="headerlink" title="手动更新证书"></a>手动更新证书</h2><p>由 kubeadm 生成的客户端证书默认只有一年有效期，我们可以通过 <code>check-expiration</code> 命令来检查证书是否过期：  </p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ kubeadm alpha certs check-expiration
-<span class="token punctuation">[</span>check-expiration<span class="token punctuation">]</span> Reading configuration from the cluster<span class="token punctuation">..</span>.
-<span class="token punctuation">[</span>check-expiration<span class="token punctuation">]</span> FYI: You can <span class="token function">look</span> at this config <span class="token function">file</span> with <span class="token string">'kubectl -n kube-system get cm kubeadm-config -oyaml'</span>
-
-CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
-admin.conf                 Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:51 UTC   364d                                    no
-apiserver                  Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            ca                      no
-apiserver-etcd-client      Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            etcd-ca                 no
-apiserver-kubelet-client   Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            ca                      no
-controller-manager.conf    Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:51 UTC   364d                                    no
-etcd-healthcheck-client    Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:45 UTC   364d            etcd-ca                 no
-etcd-peer                  Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:45 UTC   364d            etcd-ca                 no
-etcd-server                Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:45 UTC   364d            etcd-ca                 no
-front-proxy-client         Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:53 UTC   364d            front-proxy-ca          no
-scheduler.conf             Apr <span class="token number">24</span>, <span class="token number">2023</span> 02:51 UTC   364d                                    no
-
-CERTIFICATE AUTHORITY   EXPIRES                  RESIDUAL TIME   EXTERNALLY MANAGED
-ca                      Apr <span class="token number">20</span>, <span class="token number">2031</span> <span class="token number">10</span>:49 UTC   8y              no
-etcd-ca                 Apr <span class="token number">20</span>, <span class="token number">2031</span> <span class="token number">10</span>:49 UTC   8y              no
-front-proxy-ca          Apr <span class="token number">20</span>, <span class="token number">2031</span> <span class="token number">10</span>:49 UTC   8y              no</code></pre>
-<p>该命令显示 /etc/kubernetes/pki 文件夹中的客户端证书以及 kubeadm 使用的 KUBECONFIG 文件中嵌入的客户端证书的到期时间/剩余时间。</p>
+                <p>本文主要介绍使用 kubeadm 来对 kubernetes 进行升级更新。<br>大致步骤如下：</p>
+<h3 id="1-查找并下载新版本"><a href="#1-查找并下载新版本" class="headerlink" title="1. 查找并下载新版本"></a>1. 查找并下载新版本</h3><p>控制节点和工作节点都需要执行</p>
 <blockquote>
-<p><strong>NOTE</strong><br>kubeadm 不能管理由外部 CA 签名的证书，如果是外部得证书，需要自己手动去管理证书的更新。</p>
+<p><strong>NOTE</strong><br>注意：需要更新的版本和当前版本不能跳级，必须迭代升级。例如当前版本 1.17.x，只可以下载更新 1.18.x，不可以直接更新到 1.19.x 以及之后版本。</p>
 </blockquote>
-<p>另外需要说明的是上面的列表中没有包含 kubelet.conf，因为 kubeadm 将 kubelet 配置为自动更新证书。</p>
-<p>另外 kubeadm 会在控制面板升级的时候自动更新所有证书，所以使用 kubeadm 搭建得集群最佳的做法是经常升级集群，这样可以确保你的集群保持最新状态并保持合理的安全性。但是对于实际的生产环境我们可能并不会去频繁得升级集群，所以这个时候我们就需要去手动更新证书。</p>
-<p>要手动更新证书也非常方便，我们只需要通过 kubeadm alpha certs renew 命令即可更新你的证书，这个命令用 CA（或者 front-proxy-CA ）证书和存储在 /etc/kubernetes/pki 中的密钥执行更新。</p>
+<h4 id="ubuntu-debian-系"><a href="#ubuntu-debian-系" class="headerlink" title="ubuntu debian 系"></a>ubuntu debian 系</h4><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> update
+<span class="token function">apt-cache</span> madison kubeadm
+<span class="token comment"># 在列表中查找最新的 1.24 版本</span>
+<span class="token comment"># 它看起来应该是 1.24.x-00，其中 x 是最新的补丁版本</span>
+
+<span class="token comment"># 用新的补丁版本替换 1.24.x-00 中的 x</span>
+apt-mark unhold kubelet kubectl kubeadm <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+<span class="token function">apt-get</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">apt-get</span> <span class="token function">install</span> -y <span class="token assign-left variable">kubelet</span><span class="token operator">=</span><span class="token number">1.24</span>.x-00 <span class="token assign-left variable">kubectl</span><span class="token operator">=</span><span class="token number">1.24</span>.x-00  <span class="token assign-left variable">kubeadm</span><span class="token operator">=</span><span class="token number">1.24</span>.x-00 <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>
+apt-mark hold kubelet kubectl kubeadm</code></pre>
+
+<h4 id="centos-RHEL-Fedora"><a href="#centos-RHEL-Fedora" class="headerlink" title="centos RHEL Fedora"></a>centos RHEL Fedora</h4><pre class="language-bash" data-language="bash"><code class="language-bash">yum list --showduplicates kubeadm --disableexcludes<span class="token operator">=</span>kubernetes	
+<span class="token comment"># 在列表中查找最新的 1.24 版本</span>
+<span class="token comment"># 它看起来应该是 1.24.x-00，其中 x 是最新的补丁版本</span>
+
+<span class="token comment"># 用新的补丁版本号替换 1.24.x-00 中的 x</span>
+yum <span class="token function">install</span> -y kubelet-1.24.x-0 kubectl-1.24.x-0 kubeadm-1.24.x-0 --disableexcludes<span class="token operator">=</span>kubernetes</code></pre>
+
+<h3 id="2-升级-kubernetes"><a href="#2-升级-kubernetes" class="headerlink" title="2. 升级 kubernetes"></a>2. 升级 kubernetes</h3><p>有需要可以排空节点，此步骤不是必须。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kubectl drain <span class="token operator">&lt;</span>node-to-drain<span class="token operator">&gt;</span> --ignore-daemonsets</code></pre>
+
 <blockquote>
-<p><strong>NOTE</strong><br>如果是高可用集群，需要在所有Master节点上都要执行。</p>
+<p><strong>NOTE</strong><br>升级分为控制节点和其他控制节点和工作节点升级，二者升级步骤不同，请注意！</p>
 </blockquote>
-<h3 id="更新证书"><a href="#更新证书" class="headerlink" title="更新证书"></a>更新证书</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 默认地址为 /etc/kubernetes，使用时请注意替换为自己的kubenetes地址。</span>
-<span class="token comment"># 备份证书</span>
-$ <span class="token function">mkdir</span> /etc/kubernetes.bak 
-$ <span class="token function">cp</span> -r /etc/kubernetes/pki/ /etc/kubernetes.bak
-$ <span class="token function">cp</span> /etc/kubernetes/*.conf /etc/kubernetes.bak
+<h4 id="具有-x2F-etc-x2F-kubernetes-x2F-admin-conf-的控制节点执行"><a href="#具有-x2F-etc-x2F-kubernetes-x2F-admin-conf-的控制节点执行" class="headerlink" title="具有 /etc/kubernetes/admin.conf 的控制节点执行"></a>具有 /etc/kubernetes/admin.conf 的控制节点执行</h4><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看升级几乎</span>
+kubeadm upgrade plan
+<span class="token comment"># 如有提示需要手动更新的，则需要进行手动更新。</span>
+kubeadm upgrade apply v1.24.x
+<span class="token comment"># 执行后看到如下输出则视为升级成功</span>
+<span class="token punctuation">[</span>upgrade/successful<span class="token punctuation">]</span> SUCCESS<span class="token operator">!</span> Your cluster was upgraded to <span class="token string">"v1.24.x"</span><span class="token builtin class-name">.</span> Enjoy<span class="token operator">!</span>
 
-<span class="token comment"># 备份 etcd 数据目录</span>
-$ <span class="token function">cp</span> -r /var/lib/etcd /var/lib/etcd.bak
+<span class="token comment"># 执行重启kubelet</span>
+<span class="token function">sudo</span> systemctl daemon-reload
+<span class="token function">sudo</span> systemctl restart kubelet</code></pre>
 
-<span class="token comment"># 执行更新证书的命令</span>
-$ kubeadm alpha certs renew all --config<span class="token operator">=</span><span class="token punctuation">{</span>kubeadm.yaml<span class="token punctuation">}</span> <span class="token comment"># kubeadm.yaml 记得替换</span>
+<h3 id="其他控制节点以及工作节点执行"><a href="#其他控制节点以及工作节点执行" class="headerlink" title="其他控制节点以及工作节点执行"></a>其他控制节点以及工作节点执行</h3><p>其他节点直接执行 kubeadm upgrade node 即可，无需查看升级计划以及Apply</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm upgrade <span class="token function">node</span>
+<span class="token function">sudo</span> systemctl daemon-reload
+<span class="token function">sudo</span> systemctl restart kubelet</code></pre>
 
-<span class="token comment"># 更新下 kubeconfig 文件</span>
-$ kubeadm init phase kubeconfig all --config <span class="token punctuation">{</span>kubeadm.yaml<span class="token punctuation">}</span> <span class="token comment"># kubeadm.yaml 记得替换</span>
-
-<span class="token comment"># 替换 admin 配置文件</span>
-$ <span class="token function">mv</span> <span class="token environment constant">$HOME</span>/.kube/config <span class="token environment constant">$HOME</span>/.kube/config.old
-$ <span class="token function">cp</span> -i /etc/kubernetes/admin.conf <span class="token environment constant">$HOME</span>/.kube/config
-$ <span class="token function">chown</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -u<span class="token variable">)</span></span><span class="token builtin class-name">:</span><span class="token variable"><span class="token variable">$(</span><span class="token function">id</span> -g<span class="token variable">)</span></span> <span class="token environment constant">$HOME</span>/.kube/config
-
-<span class="token comment"># 重启 kube-apiserver、kube-controller、kube-scheduler、etcd 这4个容器. </span>
-$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>apiserver_container<span class="token punctuation">}</span>
-$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>controller_container<span class="token punctuation">}</span>
-$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>scheduler_container<span class="token punctuation">}</span>
-$ <span class="token function">docker</span> restart <span class="token punctuation">{</span>etcd_container<span class="token punctuation">}</span></code></pre>
-<blockquote>
-<p><strong>NOTE</strong><br>以上命令需要在所有 Master 节点上运行。</p>
-</blockquote>
-<p>以上命令即可完成手动更新，使用一下命令来验证证书更新。</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">echo</span> <span class="token operator">|</span> openssl s_client -showcerts -connect <span class="token number">127.0</span>.0.1:6443 -servername api <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null <span class="token operator">|</span> openssl x509 -noout -enddate
-<span class="token assign-left variable">notAfter</span><span class="token operator">=</span>Apr <span class="token number">24</span> 02:53:20 <span class="token number">2023</span> GMT</code></pre>
-<p>可以看到现在的有效期是一年过后的，证明已经更新成功了。</p>
+<p>升级完成，可以运行 kubectl get node 查看容器版本。</p>
 
                 
             </div>
@@ -567,7 +551,7 @@ $ <span class="token function">docker</span> restart <span class="token punctuat
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://wanbin.tech/2022/04/24/k8s-cert-renew/">https://wanbin.tech/2022/04/24/k8s-cert-renew/</a>
+                    <a href="https://wanbin.tech/2022/05/19/k8s-upgrade/">https://wanbin.tech/2022/05/19/k8s-upgrade/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -650,9 +634,10 @@ $ <span class="token function">docker</span> restart <span class="token punctuat
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/05/19/k8s-upgrade/">
                     <div class="card-image">
@@ -670,9 +655,9 @@ $ <span class="token function">docker</span> restart <span class="token punctuat
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-19
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -685,6 +670,7 @@ $ <span class="token function">docker</span> restart <span class="token punctuat
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -695,13 +681,13 @@ $ <span class="token function">docker</span> restart <span class="token punctuat
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/03/07/rust-variables/">
+                <a href="/2022/04/24/k8s-cert-renew/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Rust 变量">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="K8S 手动续期证书">
                         
-                        <span class="card-title">Rust 变量</span>
+                        <span class="card-title">K8S 手动续期证书</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -712,14 +698,14 @@ $ <span class="token function">docker</span> restart <span class="token punctuat
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-24
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Rust/" class="post-category">
-                                    Rust
+                            <a href="/categories/Kubenetes/" class="post-category">
+                                    Kubenetes
                                 </a>
                             
                             

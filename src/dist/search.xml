@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>K8S 集群更新</title>
+      <link href="/2022/05/19/k8s-upgrade/"/>
+      <url>/2022/05/19/k8s-upgrade/</url>
+      
+        <content type="html"><![CDATA[<p>本文主要介绍使用 kubeadm 来对 kubernetes 进行升级更新。<br>大致步骤如下：</p><h3 id="1-查找并下载新版本"><a href="#1-查找并下载新版本" class="headerlink" title="1. 查找并下载新版本"></a>1. 查找并下载新版本</h3><p>控制节点和工作节点都需要执行</p><blockquote><p><strong>NOTE</strong><br>注意：需要更新的版本和当前版本不能跳级，必须迭代升级。例如当前版本 1.17.x，只可以下载更新 1.18.x，不可以直接更新到 1.19.x 以及之后版本。</p></blockquote><h4 id="ubuntu-debian-系"><a href="#ubuntu-debian-系" class="headerlink" title="ubuntu debian 系"></a>ubuntu debian 系</h4><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">apt</span> update<span class="token function">apt-cache</span> madison kubeadm<span class="token comment"># 在列表中查找最新的 1.24 版本</span><span class="token comment"># 它看起来应该是 1.24.x-00，其中 x 是最新的补丁版本</span><span class="token comment"># 用新的补丁版本替换 1.24.x-00 中的 x</span>apt-mark unhold kubelet kubectl kubeadm <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span><span class="token function">apt-get</span> update <span class="token operator">&amp;&amp;</span> <span class="token function">apt-get</span> <span class="token function">install</span> -y <span class="token assign-left variable">kubelet</span><span class="token operator">=</span><span class="token number">1.24</span>.x-00 <span class="token assign-left variable">kubectl</span><span class="token operator">=</span><span class="token number">1.24</span>.x-00  <span class="token assign-left variable">kubeadm</span><span class="token operator">=</span><span class="token number">1.24</span>.x-00 <span class="token operator">&amp;&amp;</span> <span class="token punctuation">\</span>apt-mark hold kubelet kubectl kubeadm</code></pre><h4 id="centos-RHEL-Fedora"><a href="#centos-RHEL-Fedora" class="headerlink" title="centos RHEL Fedora"></a>centos RHEL Fedora</h4><pre class="language-bash" data-language="bash"><code class="language-bash">yum list --showduplicates kubeadm --disableexcludes<span class="token operator">=</span>kubernetes<span class="token comment"># 在列表中查找最新的 1.24 版本</span><span class="token comment"># 它看起来应该是 1.24.x-00，其中 x 是最新的补丁版本</span><span class="token comment"># 用新的补丁版本号替换 1.24.x-00 中的 x</span>yum <span class="token function">install</span> -y kubelet-1.24.x-0 kubectl-1.24.x-0 kubeadm-1.24.x-0 --disableexcludes<span class="token operator">=</span>kubernetes</code></pre><h3 id="2-升级-kubernetes"><a href="#2-升级-kubernetes" class="headerlink" title="2. 升级 kubernetes"></a>2. 升级 kubernetes</h3><p>有需要可以排空节点，此步骤不是必须。</p><pre class="language-bash" data-language="bash"><code class="language-bash">kubectl drain <span class="token operator">&lt;</span>node-to-drain<span class="token operator">&gt;</span> --ignore-daemonsets</code></pre><blockquote><p><strong>NOTE</strong><br>升级分为控制节点和其他控制节点和工作节点升级，二者升级步骤不同，请注意！</p></blockquote><h4 id="具有-x2F-etc-x2F-kubernetes-x2F-admin-conf-的控制节点执行"><a href="#具有-x2F-etc-x2F-kubernetes-x2F-admin-conf-的控制节点执行" class="headerlink" title="具有 /etc/kubernetes/admin.conf 的控制节点执行"></a>具有 /etc/kubernetes/admin.conf 的控制节点执行</h4><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看升级几乎</span>kubeadm upgrade plan<span class="token comment"># 如有提示需要手动更新的，则需要进行手动更新。</span>kubeadm upgrade apply v1.24.x<span class="token comment"># 执行后看到如下输出则视为升级成功</span><span class="token punctuation">[</span>upgrade/successful<span class="token punctuation">]</span> SUCCESS<span class="token operator">!</span> Your cluster was upgraded to <span class="token string">"v1.24.x"</span><span class="token builtin class-name">.</span> Enjoy<span class="token operator">!</span><span class="token comment"># 执行重启kubelet</span><span class="token function">sudo</span> systemctl daemon-reload<span class="token function">sudo</span> systemctl restart kubelet</code></pre><h3 id="其他控制节点以及工作节点执行"><a href="#其他控制节点以及工作节点执行" class="headerlink" title="其他控制节点以及工作节点执行"></a>其他控制节点以及工作节点执行</h3><p>其他节点直接执行 kubeadm upgrade node 即可，无需查看升级计划以及Apply</p><pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm upgrade <span class="token function">node</span><span class="token function">sudo</span> systemctl daemon-reload<span class="token function">sudo</span> systemctl restart kubelet</code></pre><p>升级完成，可以运行 kubectl get node 查看容器版本。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Kubenetes </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>K8S 手动续期证书</title>
       <link href="/2022/04/24/k8s-cert-renew/"/>
       <url>/2022/04/24/k8s-cert-renew/</url>
