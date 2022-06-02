@@ -1,4 +1,4 @@
-·---
+---
 title: 使用 kubeadm 安装 kubernetes 集群
 categories: 
 - Kubenetes
@@ -141,6 +141,9 @@ kubeadm init --config ./kubeadm-config.yaml --upload-certs # upload-certs 自动
 ``` bash
 kubeadm join <loadbalancer-address>:<port> --token <token> --discovery-token-ca-cert-hash sha256:<hash> --control-plane --certificate-key <key>
 ```
+> **WARNING**
+> 注意 Token 默认只有24小时有效
+> 若失效点击此处查看[生成token、cert-hash、certificate-key](/2022/06/02/kubeadm-used/)
 
 ### 6. 安装work节点
 依次执行 步骤 1-3 所有命令。
@@ -148,5 +151,8 @@ kubeadm join <loadbalancer-address>:<port> --token <token> --discovery-token-ca-
 ``` bash
 kubeadm join <loadbalancer-address>:<port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
 ```
+> **WARNING**
+> 注意 Token 默认只有24小时有效
+> 若失效点击此处查看[生成token、cert-hash、certificate-key](/2022/06/02/kubeadm-used/)
 
 至此一个高可用的kubernetes集群已经安装完成，尽情享受（折腾）吧！
