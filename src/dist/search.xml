@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>安装 Emacs (Emacs Port 版本)</title>
+      <link href="/2022/08/17/emacs-port-install/"/>
+      <url>/2022/08/17/emacs-port-install/</url>
+      
+        <content type="html"><![CDATA[<p>这是 Mac 系统下的一个分发版本，具有适配Mac的功能。<br>安装步骤</p><pre class="language-bash" data-language="bash"><code class="language-bash">brew tap railwaycat/emacsmacportbrew <span class="token function">install</span> emacs-mac brew <span class="token function">install</span> emacs-mac --with-natural-title-bar <span class="token comment"># 状态栏透明（Emacs 29版本不需要）</span><span class="token comment"># disable tap</span>brew untap railwaycat/emacsmacport</code></pre><p>透明设置</p><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#透明效果默认不开启，若要开启：</span>defaults <span class="token function">write</span> org.gnu.Emacs TransparentTitleBar DARK<span class="token comment">#或</span>defaults <span class="token function">write</span> org.gnu.Emacs TransparentTitleBar LIGHT<span class="token comment">#若要禁用透明效果：</span>defaults <span class="token function">write</span> org.gnu.Emacs TransparentTitleBar NO<span class="token comment">#若要隐藏标题栏上的文档图标：</span>defaults <span class="token function">write</span> org.gnu.Emacs HideDocumentIcon YES</code></pre><p>参考链接</p><ol><li><a href="https://github.com/railwaycat/homebrew-emacsmacport">Emacs Port Homebrew 安装</a></li><li><a href="https://emacs-china.org/t/topic/2596">状态栏透明</a></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Emacs </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Rust 变量</title>
       <link href="/2022/07/20/rust-variables/"/>
       <url>/2022/07/20/rust-variables/</url>
