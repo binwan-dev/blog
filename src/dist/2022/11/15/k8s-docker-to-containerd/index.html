@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>about | BinWan-Blogs</title>
+  <title>K8S docker迁移到containerd | BinWan-Blogs</title>
   <meta name="keywords" content="">
-  <meta name="description" content="about | BinWan-Blogs">
+  <meta name="description" content="K8S docker迁移到containerd | BinWan-Blogs">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Oops～，我崩溃了！找不到你想要的页面 :(">
 <meta property="og:type" content="website">
@@ -393,24 +393,32 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="about-" class="article article-type-about" itemscope itemprop="blogPost">
+        <article id="post-k8s_docker_to_containerd" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">about</h1>
+        <h1 class="article-title">K8S docker迁移到containerd</h1>
     
     <div class="article-meta">
         
         
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Kubenetes">Kubenetes</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-11-15 14:29:45'>2022-03-04 18:29</time>
+            发布时间 : <time class="date" title='最后更新: 2022-11-15 14:29:45'>2022-11-15 14:29</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:0</span>
+        <span>字数:454</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -440,7 +448,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AEcontainerd"><span class="toc-text">1. 安装并配置containerd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%8E%92%E7%A9%BA%E8%8A%82%E7%82%B9%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%AD%A2%E6%9C%8D%E5%8A%A1"><span class="toc-text">2. 排空节点服务停止服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AEkubelet%E4%BD%BF%E7%94%A8containerd%E4%BD%9C%E4%B8%BA%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-text">3. 配置kubelet使用containerd作为容器运行时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%AA%8C%E8%AF%81%E8%8A%82%E7%82%B9"><span class="toc-text">4. 验证节点</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -456,7 +464,44 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>由于 kubernetes 从1.24.0版本开始默认禁止使用docker，所以想要升级到1.24.0需要从docker迁移到containerd。</p>
+<p>整个升级步骤总共分为：</p>
+<ol>
+<li>安装并配置containerd；</li>
+<li>排空节点服务，停止并移除docker服务（不是必须），停止kubelet服务；</li>
+<li>配置kubelet使用containerd作为容器运行时；</li>
+<li>重启kubelet服务并验证节点；</li>
+</ol>
+<h4 id="1-安装并配置containerd"><a href="#1-安装并配置containerd" class="headerlink" title="1. 安装并配置containerd"></a>1. 安装并配置containerd</h4><p>由于docker也已切换到containerd上，可以直接参考官方docker安装教程。<br>此处参考docker安装即可，查看 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos">https://docs.docker.com/engine/install/centos</a></p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/containerd
+containerd config default <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/containerd/config.toml
+
+<span class="token comment"># 配置SystemCgroup以及 pause 为中国源</span>
+<span class="token function">vim</span> /etc/containerd/config.toml
+<span class="token comment"># 查找 [plugins."io.containerd.grpc.v1.cri".cni]</span>
+<span class="token comment"># 更改 SystemdCgroup = false 为 true</span>
+<span class="token comment"># 查找 sandbox_image 并修改 sandbox_image = "registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.6" （此处可以修改为私有源）</span>
+systemctl restart containerd
+systemctl <span class="token builtin class-name">enable</span> containerd</code></pre>
+
+<h4 id="2-排空节点服务停止服务"><a href="#2-排空节点服务停止服务" class="headerlink" title="2. 排空节点服务停止服务"></a>2. 排空节点服务停止服务</h4><pre class="language-bash" data-language="bash"><code class="language-bash">kubectl drain <span class="token operator">&lt;</span>node-name<span class="token operator">&gt;</span> --ignore-daemonsets
+systemctl stop kubelet
+systemctl stop docker.service
+systemctl disbale docker.service<span class="token punctuation">(</span>不是必须<span class="token punctuation">)</span></code></pre>
+
+<h4 id="3-配置kubelet使用containerd作为容器运行时"><a href="#3-配置kubelet使用containerd作为容器运行时" class="headerlink" title="3. 配置kubelet使用containerd作为容器运行时"></a>3. 配置kubelet使用containerd作为容器运行时</h4><pre class="language-bash" data-language="bash"><code class="language-bash">kubectl edit no <span class="token operator">&lt;</span>node-name<span class="token operator">&gt;</span>
+<span class="token comment"># 这一命令会打开一个文本编辑器，供你在其中编辑 Node 对象。 要选择不同的文本编辑器，你可以设置 KUBE_EDITOR 环境变量。</span>
+<span class="token comment"># 更改 kubeadm.alpha.kubernetes.io/cri-socket 值，将其从 /var/run/dockershim.sock 改为你所选择的 CRI 套接字路径 （例如：unix:///run/containerd/containerd.sock）。</span>
+<span class="token comment"># 注意新的 CRI 套接字路径必须带有 unix:// 前缀。</span>
+<span class="token comment"># 保存文本编辑器中所作的修改，这会更新 Node 对象。</span>
+
+<span class="token comment"># 编辑文件 /var/lib/kubelet/kubeadm-flags.env，将 containerd 运行时添加到标志中： --container-runtime=remote 和 --container-runtime-endpoint=unix:///run/containerd/containerd.sock"。</span>
+
+systemctl restart kubelet</code></pre>
+<h4 id="4-验证节点"><a href="#4-验证节点" class="headerlink" title="4. 验证节点"></a>4. 验证节点</h4><p>输出如下面所示。CONTAINER-RUNTIME 列给出容器运行时及其版本。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">kubectl get nodes <span class="token parameter variable">-o</span> wide</code></pre>
+
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 email@wanbin.tech </span>
     </div>
