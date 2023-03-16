@@ -1,5 +1,6 @@
 ---
 title: Rust 命令行参数
+date: 2022-09-02 22:28:33
 categories: 
 - Rust
 ---

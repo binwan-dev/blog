@@ -1,5 +1,6 @@
 ---
 title: Kubeadm 基本使用
+date: 2022-05-12 22:28:33
 categories: 
 - Kubenetes
 ---

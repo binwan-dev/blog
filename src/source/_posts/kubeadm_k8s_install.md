@@ -1,5 +1,6 @@
 ---
 title: 使用 kubeadm 安装 kubernetes 集群
+date: 2022-05-12 22:28:33
 categories: 
 - Kubenetes
 ---

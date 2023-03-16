@@ -1,5 +1,6 @@
 ---
 title: Rust 变量
+date: 2022-09-03 22:28:33
 categories: 
 - Rust
 ---
