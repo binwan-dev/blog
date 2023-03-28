@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>使用 kubeadm 安装 kubernetes 集群 | BinWan-Blogs</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="使用 kubeadm 安装 kubernetes 集群 | BinWan-Blogs">
+  <title>绪论-马克思主义是关于无产阶级和人类解放的科学 | BinWan-Blogs</title>
+  <meta name="keywords" content=" 自考 , 马克思主义基本原理概论 ">
+  <meta name="description" content="绪论-马克思主义是关于无产阶级和人类解放的科学 | BinWan-Blogs">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Oops～，我崩溃了！找不到你想要的页面 :(">
 <meta property="og:type" content="website">
@@ -510,9 +510,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-kubeadm_k8s_install" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-education-makesi-1" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">使用 kubeadm 安装 kubernetes 集群</h1>
+        <h1 class="article-title">绪论-马克思主义是关于无产阶级和人类解放的科学</h1>
     
     <div class="article-meta">
         
@@ -522,20 +522,31 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Kubenetes">Kubenetes</a>
+            <a  data-rel="Education">Education</a> > 
+            
+            <a  data-rel="Education&lt;---&gt;Makesi">Makesi</a>
             
         </span>
         
         
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">自考</a>
+            
+            <a class="color2">马克思主义基本原理概论</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-27 21:56:18'>2022-05-12 22:28</time>
+            发布时间 : <time class="date" title='最后更新: 2023-03-27 22:11:38'>2023-03-27 22:06</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1k</span>
+        <span>字数:0</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -565,7 +576,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A3%80%E6%9F%A5%E5%B9%B6%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E7%8E%AF%E5%A2%83"><span class="toc-text">1. 检查并设置主机环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-text">2. 安装容器运行时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85kubeadm%E3%80%81kubectl%E3%80%81kubelet"><span class="toc-text">3. 安装kubeadm、kubectl、kubelet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9"><span class="toc-text">4. 安装第一个控制节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%89%E8%A3%85%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9"><span class="toc-text">5. 安装第二个或多个控制节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AE%89%E8%A3%85work%E8%8A%82%E7%82%B9"><span class="toc-text">6. 安装work节点</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -581,125 +592,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要介绍如何通过kubeadm安装一个高可用kubernetes集群。</p>
-<h3 id="1-检查并设置主机环境"><a href="#1-检查并设置主机环境" class="headerlink" title="1. 检查并设置主机环境"></a>1. 检查并设置主机环境</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 关闭 swap （这一步必须要执行）</span>
-<span class="token function">sudo</span> swapoff <span class="token parameter variable">-a</span>
-<span class="token comment"># 查看 swap 分区情况</span>
-<span class="token function">sudo</span> <span class="token function">free</span> <span class="token parameter variable">-m</span>
-<span class="token comment"># 永久关闭 swap</span>
-<span class="token function">sudo</span> <span class="token function">vim</span> /etc/fstab
-<span class="token comment"># 在swap分区这行前加 # 禁用掉，保存退出</span>
-
-<span class="token comment"># 修改机器名称来唯一标识机器地址</span>
-<span class="token function">sudo</span> hostnamectl set-hostname <span class="token operator">&lt;</span>node-name<span class="token operator">&gt;</span>
-
-<span class="token comment"># 检查 br_netfilter</span>
-lsmod <span class="token operator">|</span> <span class="token function">grep</span> br_netfilter <span class="token comment"># 检查是否输出有 br_netfilter</span>
-<span class="token comment"># 如果没有输出执行以下命令</span>
-<span class="token function">sudo</span> modprobe br_netfilter
-
-<span class="token comment"># 允许 iptables 检查流量</span>
-<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/modules-load.d/k8s.conf</span>
-br_netfilter
-EOF</span>
-
-<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/sysctl.d/k8s.conf</span>
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF</span>
-<span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">--system</span></code></pre>
-
-<h3 id="2-安装容器运行时"><a href="#2-安装容器运行时" class="headerlink" title="2. 安装容器运行时"></a>2. 安装容器运行时</h3><p>容器运行时有 Docker、Contrainerd 等多种，本文只描述 Docker、Contrainerd 安装。<br> PS：Kubernetes 从 1.24.0 版本开始不在接受默认docker运行时，需要安装docker-shim，故推荐切换到Contrainerd运行时。另外，Docker从1.20.0版本开始底层已经依赖于Contrainerd运行时。</p>
-<p>a. 安装 Docker 参考链接 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">https://docs.docker.com/engine/install/centos/</a></p>
-<p>b. 安装 Containerd 安装方法参考 <a target="_blank" rel="noopener" href="https://github.com/containerd/containerd">https://github.com/containerd/containerd</a><br>安装完成后执行下述命令配置：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/containerd
-containerd config default <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/containerd/config.toml
-
-<span class="token comment"># 配置SystemCgroup以及 pause 为中国源</span>
-<span class="token function">vim</span> /etc/containerd/config.toml
-<span class="token comment"># 查找 [plugins."io.containerd.grpc.v1.cri".cni]</span>
-<span class="token comment"># 更改 SystemdCgroup = false 为 true</span>
-<span class="token comment"># 查找 sandbox_image 并修改 sandbox_image = "registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.6" （此处可以修改为私有源）</span>
-systemctl restart containerd
-systemctl <span class="token builtin class-name">enable</span> containerd
-
-<span class="token comment">#如果机器上还有docker </span>
-systemctl disable docker.service</code></pre>
-
-<h3 id="3-安装kubeadm、kubectl、kubelet"><a href="#3-安装kubeadm、kubectl、kubelet" class="headerlink" title="3. 安装kubeadm、kubectl、kubelet"></a>3. 安装kubeadm、kubectl、kubelet</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment">######## yum 安装 ########</span>
-<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/yum.repos.d/kubernetes.repo</span>
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-         https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-keepcache = 0
-EOF</span>
-<span class="token function">sudo</span> yum list <span class="token parameter variable">--showduplicates</span> kubeadm <span class="token parameter variable">--disableexcludes</span><span class="token operator">=</span>kubernetes <span class="token comment"># 查看需要安装的版本（推荐安装比最新版本低两个次版本）</span>
-<span class="token function">sudo</span> yum <span class="token function">install</span> <span class="token parameter variable">-y</span> kubeadm-<span class="token operator">&lt;</span>version<span class="token operator">&gt;</span> kubectl-<span class="token operator">&lt;</span>version<span class="token operator">&gt;</span> kubelet-<span class="token operator">&lt;</span>version<span class="token operator">&gt;</span>
-
-<span class="token comment"># 添加环境变量 kubectl</span>
-<span class="token builtin class-name">echo</span> <span class="token string">"export KUBECONFIG=/etc/kubernetes/admin.conf"</span> <span class="token operator">&gt;&gt;</span> ~/.bashrc
-<span class="token builtin class-name">source</span> ~/.bashrc</code></pre>
-
-<h3 id="4-安装第一个控制节点"><a href="#4-安装第一个控制节点" class="headerlink" title="4. 安装第一个控制节点"></a>4. 安装第一个控制节点</h3><p>生成 kubeadm-config</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> ./kubeadm-config.yaml</span>
-apiVersion: kubeadm.k8s.io/v1beta3
-kind: InitConfiguration
-nodeRegistration:
-  criSocket: &lt;container-sock&gt;
-  imagePullPolicy: IfNotPresent
----
-apiVersion: kubeadm.k8s.io/v1beta3
-certificatesDir: /etc/kubernetes/pki
-clusterName: kubernetes
-controllerManager: {}
-dns: {}
-etcd:
-  local:
-    dataDir: /var/lib/etcd
-imageRepository: registry.cn-hangzhou.aliyuncs.com/google_containers
-kind: ClusterConfiguration
-kubernetesVersion: &lt;kubernetes-version&gt;
-controlPlaneEndpoint: "&lt;loadbalancer-address&gt;:&lt;port&gt;"
-networking:
-  dnsDomain: cluster.local
-  podSubnet: ""
-  serviceSubnet: 10.96.0.0/12
-scheduler: {}
-EOF</span></code></pre>
-<p>a. 需要修改 <container-sock> docker运行时位置：/var/run/docker.sock  containerd运行时位置：/var/run/containerd/containerd.sock<br>b. 需要修改 <kubernetes-version> 也就是刚才安装的kubeadm 版本。<br>c. 需要修改 <loadbalancer-address>:<port> kubectl链接控制kubernetes集群的地址。（推荐使用域名，解析到所有master节点上）</port></loadbalancer-address></kubernetes-version></container-sock></p>
-<p>执行kuberadm init 初始化集群</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm init <span class="token parameter variable">--config</span> ./kubeadm-config.yaml --upload-certs <span class="token comment"># upload-certs 自动上传集群证书到各个节点</span>
-
-<span class="token comment"># 执行完之后会输出</span>
-<span class="token operator">&gt;</span> kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span> <span class="token punctuation">\</span>
-<span class="token operator">&gt;</span>	--control-plane --certificate-key <span class="token operator">&lt;</span>key<span class="token operator">&gt;</span>
-
-<span class="token operator">&gt;</span> Please note that the certificate-key gives access to cluster sensitive data, keep it secret<span class="token operator">!</span>
-<span class="token operator">&gt;</span> As a safeguard, uploaded-certs will be deleted <span class="token keyword">in</span> two hours<span class="token punctuation">;</span> If necessary, you can use
-<span class="token operator">&gt;</span> <span class="token string">"kubeadm init phase upload-certs --upload-certs"</span> to reload certs afterward.
-
-<span class="token operator">&gt;</span> Then you can <span class="token function">join</span> any number of worker nodes by running the following on each as root:
-
-<span class="token operator">&gt;</span> kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span>
-</code></pre>
-<p>后续work和master节点加入按照输出的token和证书key相应加入。</p>
-<h3 id="5-安装第二个或多个控制节点"><a href="#5-安装第二个或多个控制节点" class="headerlink" title="5. 安装第二个或多个控制节点"></a>5. 安装第二个或多个控制节点</h3><p>依次执行 步骤 1-3 所有命令。<br>执行kubeadm join</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span> --control-plane --certificate-key <span class="token operator">&lt;</span>key<span class="token operator">&gt;</span></code></pre>
-<blockquote>
-<p><strong>WARNING</strong><br>注意 Token 默认只有24小时有效<br>若失效点击此处查看<a href="/2022/06/02/kubeadm-used/">生成token、cert-hash、certificate-key</a></p>
-</blockquote>
-<h3 id="6-安装work节点"><a href="#6-安装work节点" class="headerlink" title="6. 安装work节点"></a>6. 安装work节点</h3><p>依次执行 步骤 1-3 所有命令。<br>执行kubeadm join</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span></code></pre>
-<blockquote>
-<p><strong>WARNING</strong><br>注意 Token 默认只有24小时有效<br>若失效点击此处查看<a href="/2022/06/02/kubeadm-used/">生成token、cert-hash、certificate-key</a></p>
-</blockquote>
-<p>至此一个高可用的kubernetes集群已经安装完成，尽情享受（折腾）吧！</p>
-
+        
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 email@wanbin.tech </span>
     </div>

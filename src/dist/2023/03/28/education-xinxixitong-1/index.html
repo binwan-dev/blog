@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>使用 kubeadm 安装 kubernetes 集群 | BinWan-Blogs</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="使用 kubeadm 安装 kubernetes 集群 | BinWan-Blogs">
+  <title>第一章 管理信息系统导论 | BinWan-Blogs</title>
+  <meta name="keywords" content=" 自考 , 信息系统开发与管理 ">
+  <meta name="description" content="第一章 管理信息系统导论 | BinWan-Blogs">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Oops～，我崩溃了！找不到你想要的页面 :(">
 <meta property="og:type" content="website">
@@ -510,9 +510,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-kubeadm_k8s_install" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-education-xinxixitong-1" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">使用 kubeadm 安装 kubernetes 集群</h1>
+        <h1 class="article-title">第一章 管理信息系统导论</h1>
     
     <div class="article-meta">
         
@@ -522,20 +522,31 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Kubenetes">Kubenetes</a>
+            <a  data-rel="Education">Education</a> > 
+            
+            <a  data-rel="Education&lt;---&gt;信息系统开发与管理">信息系统开发与管理</a>
             
         </span>
         
         
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">自考</a>
+            
+            <a class="color5">信息系统开发与管理</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-03-27 21:56:18'>2022-05-12 22:28</time>
+            发布时间 : <time class="date" title='最后更新: 2023-03-28 21:57:11'>2023-03-28 21:55</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:1k</span>
+        <span>字数:3k</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -565,7 +576,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%A3%80%E6%9F%A5%E5%B9%B6%E8%AE%BE%E7%BD%AE%E4%B8%BB%E6%9C%BA%E7%8E%AF%E5%A2%83"><span class="toc-text">1. 检查并设置主机环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-text">2. 安装容器运行时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85kubeadm%E3%80%81kubectl%E3%80%81kubelet"><span class="toc-text">3. 安装kubeadm、kubectl、kubelet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9"><span class="toc-text">4. 安装第一个控制节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%89%E8%A3%85%E7%AC%AC%E4%BA%8C%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E6%8E%A7%E5%88%B6%E8%8A%82%E7%82%B9"><span class="toc-text">5. 安装第二个或多个控制节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%AE%89%E8%A3%85work%E8%8A%82%E7%82%B9"><span class="toc-text">6. 安装work节点</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E5%AF%BC%E8%AE%BA"><span class="toc-text">第一章 管理信息系统导论</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89"><span class="toc-text">1. 管理信息系统的基本定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%BA%E6%9C%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">人机系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BD%93%E5%8C%96%E7%B3%BB%E7%BB%9F"><span class="toc-text">一体化系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">2. 管理信息系统的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%94%B5%E5%AD%90%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E5%90%AB%E4%B9%89"><span class="toc-text">1. 电子业务系统含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%94%B5%E5%AD%90%E6%94%BF%E5%8A%A1%E7%B3%BB%E7%BB%9F%E5%90%AB%E4%B9%89"><span class="toc-text">2. 电子政务系统含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%94%B5%E5%AD%90%E5%95%86%E5%8A%A1%E7%B3%BB%E7%BB%9F%E5%90%AB%E4%B9%89"><span class="toc-text">3. 电子商务系统含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%93%8D%E4%BD%9C%E5%9E%8B%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="toc-text">4. 操作型管理信息系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%88%86%E6%9E%90%E5%9E%8B%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="toc-text">5. 分析型管理信息系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E4%BA%8B%E5%8A%A1%E5%9E%8B%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="toc-text">6. 事务型管理信息系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E7%AE%A1%E7%90%86%E5%9E%8B%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="toc-text">7. 管理型管理信息系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%88%98%E7%95%A5%E5%9E%8B%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F"><span class="toc-text">8. 战略型管理信息系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">3. 管理信息系统的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84"><span class="toc-text">1. 功能结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%A6%82%E5%BF%B5%E7%BB%93%E6%9E%84"><span class="toc-text">2. 概念结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%AE%A1%E7%90%86%E8%81%8C%E8%83%BD%E7%BB%93%E6%9E%84"><span class="toc-text">3. 管理职能结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BD%AF%E7%A1%AC%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="toc-text">4. 软硬件结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BD%91%E7%BB%9C%E8%AE%A1%E7%AE%97%E7%BB%93%E6%9E%84"><span class="toc-text">5. 网络计算结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%AE%A1%E7%90%86%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%87%A0%E7%A7%8D%E5%85%B8%E5%9E%8B%E5%BA%94%E7%94%A8%E5%BD%A2%E5%BC%8F"><span class="toc-text">4. 管理信息系统的几种典型应用形式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-MRP%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">1. MRP基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-MRP-II%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">2. MRP II基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ERP%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text">3. ERP基本原理</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -581,124 +592,198 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要介绍如何通过kubeadm安装一个高可用kubernetes集群。</p>
-<h3 id="1-检查并设置主机环境"><a href="#1-检查并设置主机环境" class="headerlink" title="1. 检查并设置主机环境"></a>1. 检查并设置主机环境</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 关闭 swap （这一步必须要执行）</span>
-<span class="token function">sudo</span> swapoff <span class="token parameter variable">-a</span>
-<span class="token comment"># 查看 swap 分区情况</span>
-<span class="token function">sudo</span> <span class="token function">free</span> <span class="token parameter variable">-m</span>
-<span class="token comment"># 永久关闭 swap</span>
-<span class="token function">sudo</span> <span class="token function">vim</span> /etc/fstab
-<span class="token comment"># 在swap分区这行前加 # 禁用掉，保存退出</span>
-
-<span class="token comment"># 修改机器名称来唯一标识机器地址</span>
-<span class="token function">sudo</span> hostnamectl set-hostname <span class="token operator">&lt;</span>node-name<span class="token operator">&gt;</span>
-
-<span class="token comment"># 检查 br_netfilter</span>
-lsmod <span class="token operator">|</span> <span class="token function">grep</span> br_netfilter <span class="token comment"># 检查是否输出有 br_netfilter</span>
-<span class="token comment"># 如果没有输出执行以下命令</span>
-<span class="token function">sudo</span> modprobe br_netfilter
-
-<span class="token comment"># 允许 iptables 检查流量</span>
-<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/modules-load.d/k8s.conf</span>
-br_netfilter
-EOF</span>
-
-<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/sysctl.d/k8s.conf</span>
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF</span>
-<span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">--system</span></code></pre>
-
-<h3 id="2-安装容器运行时"><a href="#2-安装容器运行时" class="headerlink" title="2. 安装容器运行时"></a>2. 安装容器运行时</h3><p>容器运行时有 Docker、Contrainerd 等多种，本文只描述 Docker、Contrainerd 安装。<br> PS：Kubernetes 从 1.24.0 版本开始不在接受默认docker运行时，需要安装docker-shim，故推荐切换到Contrainerd运行时。另外，Docker从1.20.0版本开始底层已经依赖于Contrainerd运行时。</p>
-<p>a. 安装 Docker 参考链接 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">https://docs.docker.com/engine/install/centos/</a></p>
-<p>b. 安装 Containerd 安装方法参考 <a target="_blank" rel="noopener" href="https://github.com/containerd/containerd">https://github.com/containerd/containerd</a><br>安装完成后执行下述命令配置：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/containerd
-containerd config default <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/containerd/config.toml
-
-<span class="token comment"># 配置SystemCgroup以及 pause 为中国源</span>
-<span class="token function">vim</span> /etc/containerd/config.toml
-<span class="token comment"># 查找 [plugins."io.containerd.grpc.v1.cri".cni]</span>
-<span class="token comment"># 更改 SystemdCgroup = false 为 true</span>
-<span class="token comment"># 查找 sandbox_image 并修改 sandbox_image = "registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.6" （此处可以修改为私有源）</span>
-systemctl restart containerd
-systemctl <span class="token builtin class-name">enable</span> containerd
-
-<span class="token comment">#如果机器上还有docker </span>
-systemctl disable docker.service</code></pre>
-
-<h3 id="3-安装kubeadm、kubectl、kubelet"><a href="#3-安装kubeadm、kubectl、kubelet" class="headerlink" title="3. 安装kubeadm、kubectl、kubelet"></a>3. 安装kubeadm、kubectl、kubelet</h3><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment">######## yum 安装 ########</span>
-<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> /etc/yum.repos.d/kubernetes.repo</span>
-[kubernetes]
-name=Kubernetes
-baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/
-enabled=1
-gpgcheck=0
-repo_gpgcheck=0
-gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg
-         https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
-keepcache = 0
-EOF</span>
-<span class="token function">sudo</span> yum list <span class="token parameter variable">--showduplicates</span> kubeadm <span class="token parameter variable">--disableexcludes</span><span class="token operator">=</span>kubernetes <span class="token comment"># 查看需要安装的版本（推荐安装比最新版本低两个次版本）</span>
-<span class="token function">sudo</span> yum <span class="token function">install</span> <span class="token parameter variable">-y</span> kubeadm-<span class="token operator">&lt;</span>version<span class="token operator">&gt;</span> kubectl-<span class="token operator">&lt;</span>version<span class="token operator">&gt;</span> kubelet-<span class="token operator">&lt;</span>version<span class="token operator">&gt;</span>
-
-<span class="token comment"># 添加环境变量 kubectl</span>
-<span class="token builtin class-name">echo</span> <span class="token string">"export KUBECONFIG=/etc/kubernetes/admin.conf"</span> <span class="token operator">&gt;&gt;</span> ~/.bashrc
-<span class="token builtin class-name">source</span> ~/.bashrc</code></pre>
-
-<h3 id="4-安装第一个控制节点"><a href="#4-安装第一个控制节点" class="headerlink" title="4. 安装第一个控制节点"></a>4. 安装第一个控制节点</h3><p>生成 kubeadm-config</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> <span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token function">tee</span> ./kubeadm-config.yaml</span>
-apiVersion: kubeadm.k8s.io/v1beta3
-kind: InitConfiguration
-nodeRegistration:
-  criSocket: &lt;container-sock&gt;
-  imagePullPolicy: IfNotPresent
----
-apiVersion: kubeadm.k8s.io/v1beta3
-certificatesDir: /etc/kubernetes/pki
-clusterName: kubernetes
-controllerManager: {}
-dns: {}
-etcd:
-  local:
-    dataDir: /var/lib/etcd
-imageRepository: registry.cn-hangzhou.aliyuncs.com/google_containers
-kind: ClusterConfiguration
-kubernetesVersion: &lt;kubernetes-version&gt;
-controlPlaneEndpoint: "&lt;loadbalancer-address&gt;:&lt;port&gt;"
-networking:
-  dnsDomain: cluster.local
-  podSubnet: ""
-  serviceSubnet: 10.96.0.0/12
-scheduler: {}
-EOF</span></code></pre>
-<p>a. 需要修改 <container-sock> docker运行时位置：/var/run/docker.sock  containerd运行时位置：/var/run/containerd/containerd.sock<br>b. 需要修改 <kubernetes-version> 也就是刚才安装的kubeadm 版本。<br>c. 需要修改 <loadbalancer-address>:<port> kubectl链接控制kubernetes集群的地址。（推荐使用域名，解析到所有master节点上）</port></loadbalancer-address></kubernetes-version></container-sock></p>
-<p>执行kuberadm init 初始化集群</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm init <span class="token parameter variable">--config</span> ./kubeadm-config.yaml --upload-certs <span class="token comment"># upload-certs 自动上传集群证书到各个节点</span>
-
-<span class="token comment"># 执行完之后会输出</span>
-<span class="token operator">&gt;</span> kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span> <span class="token punctuation">\</span>
-<span class="token operator">&gt;</span>	--control-plane --certificate-key <span class="token operator">&lt;</span>key<span class="token operator">&gt;</span>
-
-<span class="token operator">&gt;</span> Please note that the certificate-key gives access to cluster sensitive data, keep it secret<span class="token operator">!</span>
-<span class="token operator">&gt;</span> As a safeguard, uploaded-certs will be deleted <span class="token keyword">in</span> two hours<span class="token punctuation">;</span> If necessary, you can use
-<span class="token operator">&gt;</span> <span class="token string">"kubeadm init phase upload-certs --upload-certs"</span> to reload certs afterward.
-
-<span class="token operator">&gt;</span> Then you can <span class="token function">join</span> any number of worker nodes by running the following on each as root:
-
-<span class="token operator">&gt;</span> kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span>
-</code></pre>
-<p>后续work和master节点加入按照输出的token和证书key相应加入。</p>
-<h3 id="5-安装第二个或多个控制节点"><a href="#5-安装第二个或多个控制节点" class="headerlink" title="5. 安装第二个或多个控制节点"></a>5. 安装第二个或多个控制节点</h3><p>依次执行 步骤 1-3 所有命令。<br>执行kubeadm join</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span> --control-plane --certificate-key <span class="token operator">&lt;</span>key<span class="token operator">&gt;</span></code></pre>
-<blockquote>
-<p><strong>WARNING</strong><br>注意 Token 默认只有24小时有效<br>若失效点击此处查看<a href="/2022/06/02/kubeadm-used/">生成token、cert-hash、certificate-key</a></p>
-</blockquote>
-<h3 id="6-安装work节点"><a href="#6-安装work节点" class="headerlink" title="6. 安装work节点"></a>6. 安装work节点</h3><p>依次执行 步骤 1-3 所有命令。<br>执行kubeadm join</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm <span class="token function">join</span> <span class="token operator">&lt;</span>loadbalancer-address<span class="token operator">&gt;</span>:<span class="token operator">&lt;</span>port<span class="token operator">&gt;</span> <span class="token parameter variable">--token</span> <span class="token operator">&lt;</span>token<span class="token operator">&gt;</span> --discovery-token-ca-cert-hash sha256:<span class="token operator">&lt;</span>hash<span class="token operator">&gt;</span></code></pre>
-<blockquote>
-<p><strong>WARNING</strong><br>注意 Token 默认只有24小时有效<br>若失效点击此处查看<a href="/2022/06/02/kubeadm-used/">生成token、cert-hash、certificate-key</a></p>
-</blockquote>
-<p>至此一个高可用的kubernetes集群已经安装完成，尽情享受（折腾）吧！</p>
+        <ol>
+<li><a href="#org5f1516c">第一章 管理信息系统导论</a><ol>
+<li><a href="#orga8ebf57">1. 管理信息系统的基本定义</a><ol>
+<li><a href="#org8fe9ef7">定义</a></li>
+<li><a href="#orgb9402b2">人机系统</a></li>
+<li><a href="#org16a74e2">一体化系统</a></li>
+</ol>
+</li>
+<li><a href="#org7ad3054">2. 管理信息系统的分类</a><ol>
+<li><a href="#org1df4254">1. 电子业务系统含义</a></li>
+<li><a href="#org49ee134">2. 电子政务系统含义</a></li>
+<li><a href="#org3996e0f">3. 电子商务系统含义</a></li>
+<li><a href="#org754d966">4. 操作型管理信息系统</a></li>
+<li><a href="#org8d00a55">5. 分析型管理信息系统</a></li>
+<li><a href="#org1a902c3">6. 事务型管理信息系统</a></li>
+<li><a href="#orga3b3210">7. 管理型管理信息系统</a></li>
+<li><a href="#org1905414">8. 战略型管理信息系统</a></li>
+</ol>
+</li>
+<li><a href="#org444f00e">3. 管理信息系统的结构</a><ol>
+<li><a href="#org51fa7d9">1. 功能结构</a></li>
+<li><a href="#org4e6b21b">2. 概念结构</a></li>
+<li><a href="#org672e191">3. 管理职能结构</a></li>
+<li><a href="#orgc0dd1f1">4. 软硬件结构</a></li>
+<li><a href="#org296fe80">5. 网络计算结构</a></li>
+</ol>
+</li>
+<li><a href="#org2073983">4. 管理信息系统的几种典型应用形式</a><ol>
+<li><a href="#org0b5d375">1. MRP基本原理</a></li>
+<li><a href="#orgd8814de">2. MRP II基本原理</a></li>
+<li><a href="#org7d4ea4c">3. ERP基本原理</a></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><a id="org5f1516c"></a></p>
+<h1 id="第一章-管理信息系统导论"><a href="#第一章-管理信息系统导论" class="headerlink" title="第一章 管理信息系统导论"></a>第一章 管理信息系统导论</h1><p><a id="orga8ebf57"></a></p>
+<h2 id="1-管理信息系统的基本定义"><a href="#1-管理信息系统的基本定义" class="headerlink" title="1. 管理信息系统的基本定义"></a>1. 管理信息系统的基本定义</h2><p><a id="org8fe9ef7"></a></p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>管理信息系統是一个由人、机组成的能进行管理信息的收集、传递、存储、加工、维护和使用的系统。</p>
+<p><a id="orgb9402b2"></a></p>
+<h3 id="人机系统"><a href="#人机系统" class="headerlink" title="人机系统"></a>人机系统</h3><p>管理信息系统=人+计算机，但是计算机并不一定是管理信息系统的必要条件。</p>
+<p><a id="org16a74e2"></a></p>
+<h3 id="一体化系统"><a href="#一体化系统" class="headerlink" title="一体化系统"></a>一体化系统</h3><p>具有两个含义：数据的一体化、系统开发的一体化</p>
+<p>数据的一体化：数据在物理存储上可以分布存放，但在逻辑上却需要统一的部门、统一的人员集中管理。<br>系统开发的一体化：按总体规划，分布实施的原则。</p>
+<p><a id="org7ad3054"></a></p>
+<h2 id="2-管理信息系统的分类"><a href="#2-管理信息系统的分类" class="headerlink" title="2. 管理信息系统的分类"></a>2. 管理信息系统的分类</h2><ol>
+<li>按核心业务活动可分为电子业务系统、电子政务系统、电子商务系统</li>
+<li>按数据处理方式分为操作性和分析型</li>
+<li>按管理应用层次分为事务型、管理型和战略型</li>
+</ol>
+<p><a id="org1df4254"></a></p>
+<h3 id="1-电子业务系统含义"><a href="#1-电子业务系统含义" class="headerlink" title="1. 电子业务系统含义"></a>1. 电子业务系统含义</h3><p>主要针对一个组织内部的具体业务过程建立的，主要服务于这个组织的内部管理活动。</p>
+<p><a id="org49ee134"></a></p>
+<h3 id="2-电子政务系统含义"><a href="#2-电子政务系统含义" class="headerlink" title="2. 电子政务系统含义"></a>2. 电子政务系统含义</h3><p>主要针对政府部门的政务管理活动和服务职能而建立的，意在促进政府部门管理手段的变革，超越时间、空间和部门分割的制约，全方位地向社会提供优质、规范、透明的服务，其电子化的对象是政务活动中的信息采集、处理和传递活动。<br>政府的主要职能：经济管理、市场监管、社会管理和公共服务。<br>特点：</p>
+<ol>
+<li>使政务工作更有效、更精简;</li>
+<li>使政府工作更公开、更透明；</li>
+<li>为企业和居民提供更好的服务；</li>
+<li>重新构造政府、企业、居民之间的关系，使之比之前更加协调，使企业和居民能更好的参与政府管理；</li>
+</ol>
+<p><a id="org3996e0f"></a></p>
+<h3 id="3-电子商务系统含义"><a href="#3-电子商务系统含义" class="headerlink" title="3. 电子商务系统含义"></a>3. 电子商务系统含义</h3><p>电子商务系统主要针对商贸活动而建立的，主要依托Internet，实现消费者的网上购物、商户之间的网上交易和在线电子支付等活动。<br>电子化对象是商务过程中的信息处理活动。<br>按商务活动参与主体，划分为：企业对企业、企业对消费者、消费者对消费者、企业对政府等若干模式。</p>
+<p><a id="org754d966"></a></p>
+<h3 id="4-操作型管理信息系统"><a href="#4-操作型管理信息系统" class="headerlink" title="4. 操作型管理信息系统"></a>4. 操作型管理信息系统</h3><p>一般是面向具体的管理业务而建立的，功能比较简单，主要包括：数据录入、修改、删除、打印、查找和简单的汇总计算等。<br>通常与分析型管理信息系统合并在一起，作为系统中的子模块或子系统。</p>
+<p><a id="org8d00a55"></a></p>
+<h3 id="5-分析型管理信息系统"><a href="#5-分析型管理信息系统" class="headerlink" title="5. 分析型管理信息系统"></a>5. 分析型管理信息系统</h3><p>主要面向需要进行趋势分析、预测等管理决策需求而建立。通常基于操作型管理信息系统开发。</p>
+<p><a id="org1a902c3"></a></p>
+<h3 id="6-事务型管理信息系统"><a href="#6-事务型管理信息系统" class="headerlink" title="6. 事务型管理信息系统"></a>6. 事务型管理信息系统</h3><p>主要服务于组织基层管理者，主要目的是具体业务过程中的自动化。</p>
+<p><a id="orga3b3210"></a></p>
+<h3 id="7-管理型管理信息系统"><a href="#7-管理型管理信息系统" class="headerlink" title="7. 管理型管理信息系统"></a>7. 管理型管理信息系统</h3><p>主要服务于组织中层管理者，提供综合查询、统计分析和报表、报告等功能，涉及多项业务的综合管理。<br>主要目的是使组织中层管理人员通过固定格式的报表、报告和综合查询、统计分析，了解和监视管理领域运行情况。</p>
+<p><a id="org1905414"></a></p>
+<h3 id="8-战略型管理信息系统"><a href="#8-战略型管理信息系统" class="headerlink" title="8. 战略型管理信息系统"></a>8. 战略型管理信息系统</h3><p>主要服务于组织高层管理者，主要目的为战略计划的制定和调整提供辅助决策功能。</p>
+<p><a id="org444f00e"></a></p>
+<h2 id="3-管理信息系统的结构"><a href="#3-管理信息系统的结构" class="headerlink" title="3. 管理信息系统的结构"></a>3. 管理信息系统的结构</h2><p>主要包括功能结构、概念结构、管理职能结构、软硬件结构和网络计算结构</p>
+<p><a id="org51fa7d9"></a></p>
+<h3 id="1-功能结构"><a href="#1-功能结构" class="headerlink" title="1. 功能结构"></a>1. 功能结构</h3><p>从使用者角度来看，任何一个管理信息系统均有明确的目标，并由若干具体功能组成。为了完成这个目标，各功能相互联系，构成一个有机结合的整体，表现出系统的特征。</p>
+<p><a id="org4e6b21b"></a></p>
+<h3 id="2-概念结构"><a href="#2-概念结构" class="headerlink" title="2. 概念结构"></a>2. 概念结构</h3><p>对各个管理信息系统的功能结构进行抽象，会发现所有的管理信息系统均由信息源、信息处理器、信息用户和信息管理者四大部件组成。<br>四大部件作用：</p>
+<ol>
+<li>信息源是信息产生地；</li>
+<li>信息处理器担负着信息的传输、加工、存储等任务；</li>
+<li>信息用户是信息的最终使用者，他们应用信息进行管理决策；</li>
+<li>信息管理者负责信息系统的设计、实施、维护等工作；</li>
+</ol>
+<p><a id="org672e191"></a></p>
+<h3 id="3-管理职能结构"><a href="#3-管理职能结构" class="headerlink" title="3. 管理职能结构"></a>3. 管理职能结构</h3><p>管理组织一般具有直线制、职能制、矩阵式等组织结构，可从纵向、横向视角进行分析。</p>
+<ol>
+<li><ol>
+<li>纵向视角</li>
+</ol>
+<p>按管理活动从高、中、低三个层次分为：战略决策层、管理控制层、执行控制层。针对三个层次的系统称为战略子系统、管理控制子系统、执行控制子系统，分别属于战略型、管理型和事务型管理信息系统。</p>
+<ol>
+<li>战略计划子系统<br>主要任务：为企业战略计划的制订和调整提供辅助决策功能。<br>数据来源：经过执行控制子系统或管理控制子系统加工处理的，以及企业外部，其中外部数据占比比例较大。<br>特点：很难用简单的过程和程序实现，需要采用模拟和概率模型等方法来近似实现。很大程度上取决于管理者长期积累的丰富经验。</li>
+<li>管理控制子系统<br>主要任务：为企业各职能部门管理人员提供用于衡量企业效益、控制企业生产经营活动、制订企业资源分配方案等活动所需要的信息。<br>数据来源：从执行控制子系统取出信息进行汇总及处理。<br>主要功能：<ol>
+<li>使用计划或预算模型来帮助管理人员编制计划和调整计划与预算执行情况；</li>
+<li>定期生成企业生产经营执行情况的综合报告;</li>
+<li>使用数学方法分析计划执行的偏差情况，并提供最佳或满意的解决方案；</li>
+<li>提供各种查询功能；</li>
+</ol>
+</li>
+<li>执行控制子系统<br>主要任务：确保基层的生产经营活动正常、有效地进行。<br>特点：通常使用预定的过程和决策规则，过程一般很稳定，即决策规则和处理过程都是程序化、结构化的。处理和决策周期都比较短。<br>类型：事务处理、报表处理、查询处理。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>横向视角</li>
+</ol>
+<p>管理活动按职能排列的，对于制造业，主要管理可概括为 人、物、财、产、供、销等。按管理职能可分为若干子系统</p>
+<ol>
+<li>生产管理子系统</li>
+<li>销售管理子系统</li>
+<li>物资管理子系统</li>
+<li>财务会计管理子系统</li>
+<li>人力资源管理子系统</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>综合视角</li>
+</ol>
+<p>纵向和横向相互交叉，即管理层次和职能划分交叉。</p>
+</li>
+</ol>
+<p><a id="orgc0dd1f1"></a></p>
+<h3 id="4-软硬件结构"><a href="#4-软硬件结构" class="headerlink" title="4. 软硬件结构"></a>4. 软硬件结构</h3><ol>
+<li><ol>
+<li>硬件结构</li>
+</ol>
+<p>按计算机在管理信息系统中发挥的作用，可划分为客户机和服务器两大类；<br>服务器划分：</p>
+<ol>
+<li>按规模划分为：超级计算机、大型机、小型机和PC服务器。常见为小型机和PC服务器</li>
+<li>按操作系统划分：Windows、Linux、Unix</li>
+<li>按功能划分：数据库服务器、打印服务器、邮件服务器、Web服务器、J2EE应用服务器、多媒体服务器、FTP服务器、身份认证服务器和电子商务服务器</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>软件结构</li>
+</ol>
+<p>大体分为应用软件和系统软件。<br>管理信息系统的软件结构主要包括：</p>
+<ol>
+<li>描述管理信息系统应用软件的功能模块；</li>
+<li>依附于硬件结构的管理信息系统的软件结构，主要包括：操作系统、数据库管理系统、应用开发工具和各种服务器软件等。</li>
+</ol>
+</li>
+</ol>
+<p><a id="org296fe80"></a></p>
+<h3 id="5-网络计算结构"><a href="#5-网络计算结构" class="headerlink" title="5. 网络计算结构"></a>5. 网络计算结构</h3><p>大致划分为：中央主机集中分时处理模式、文件服务器模式、客户机/服务器模式、浏览器/服务器模式</p>
+<ol>
+<li><ol>
+<li>客户服务器模式</li>
+</ol>
+<p>交互性强是C/S模式最大优点。</p>
+</li>
+<li><ol start="2">
+<li>浏览器服务器模式</li>
+</ol>
+</li>
+</ol>
+<p><a id="org2073983"></a></p>
+<h2 id="4-管理信息系统的几种典型应用形式"><a href="#4-管理信息系统的几种典型应用形式" class="headerlink" title="4. 管理信息系统的几种典型应用形式"></a>4. 管理信息系统的几种典型应用形式</h2><p>主要包括物料需求计划系统MRP、制造资源计划系统MRP II和企业资源计划系统ERP</p>
+<p><a id="org0b5d375"></a></p>
+<h3 id="1-MRP基本原理"><a href="#1-MRP基本原理" class="headerlink" title="1. MRP基本原理"></a>1. MRP基本原理</h3><p>是一种以物料需求的计划与控制为主线的管理思想，基于此种管理方法形式的系统被称为MRP系统。<br>以物料需求活动为对象的物料需求管理，是一种安排未来生产的方法，核心是考虑物料与时间和数量之间的关系。</p>
+<p>管理理念主要是：</p>
+<ol>
+<li>供应必须与需求平衡；</li>
+<li>优先级计划原则；</li>
+</ol>
+<p>计算依据：主生产计划（MPS）、物料清单（BPM）、库存信息。<br>主生产计划决定MRP的必要性和可行性。<br>基本任务：从所需求产品的生产计划导出相关物料的需求量和需求时间；根据物料的需求时间和生产周期来确定其开始生产的时间。</p>
+<p><a id="orgd8814de"></a></p>
+<h3 id="2-MRP-II基本原理"><a href="#2-MRP-II基本原理" class="headerlink" title="2. MRP II基本原理"></a>2. MRP II基本原理</h3><p>把制造、财务、销售、采购、工程技术等各个子系统集成为一个一体化系统被成为制造资源计划系统<br>基本思想：把企业作为一个有机的整体，基于企业经营目标制定生产计划，围绕物料集成组织内的各种信息，实现按需、按时进行生产。<br>与MRP的主要区别之一就是运用管理会计的概念。</p>
+<p><a id="org7d4ea4c"></a></p>
+<h3 id="3-ERP基本原理"><a href="#3-ERP基本原理" class="headerlink" title="3. ERP基本原理"></a>3. ERP基本原理</h3><p>ERP是面向供应链管理的，基于时间是ERP的重要特点之一。ERP以顾客驱动、基于时间、面向整个供应链为三个主要特征，以资金、货物、人员和信息为四大元素。<br>ERP是一种企业内部所有业务部门之间以及企业同外部合作伙伴之间交换和分享信息的系统；是集成供应链管理的工具、技术和流程，是管理决策和供应链流程优化不可缺少的手段，有助于实现现代企业的竞争优势。<br>主要功能主要包括：财务管理、物流管理、生产计划与控制管理、人力资源管理等方面。</p>
+<ol>
+<li><ol>
+<li>财务管理</li>
+</ol>
+<p>分为会计核算与财务管理两大块。</p>
+</li>
+<li><ol start="2">
+<li>物流管理</li>
+</ol>
+<p>主要包括分销管理、库存控制和采购管理。</p>
+</li>
+<li><ol start="3">
+<li>生产计划与控制管理</li>
+</ol>
+<p>ERP的核心功能，将企业的整个生产过程有机的结合在一起，使得企业能够有效地降低库存，提高效率。<br>主要包括：主生产计划、物料需求计划、能力需求计划、车间控制、制造标准。</p>
+</li>
+<li><ol start="4">
+<li>人力资源管理</li>
+</ol>
+</li>
+</ol>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 email@wanbin.tech </span>
