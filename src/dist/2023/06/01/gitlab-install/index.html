@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>第一章 导论 | BinWan-Blogs</title>
-  <meta name="keywords" content=" 自考 , 运筹学基础 ">
-  <meta name="description" content="第一章 导论 | BinWan-Blogs">
+  <title>GitLab 安装 | BinWan-Blogs</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="GitLab 安装 | BinWan-Blogs">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Oops～，我崩溃了！找不到你想要的页面 :(">
 <meta property="og:type" content="website">
@@ -633,9 +633,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-education-yunchouxue-1-md" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-gitlab-install" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">第一章 导论</h1>
+        <h1 class="article-title">GitLab 安装</h1>
     
     <div class="article-meta">
         
@@ -645,31 +645,22 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Education">Education</a> > 
+            <a  data-rel="脚手架">脚手架</a> > 
             
-            <a  data-rel="Education&lt;---&gt;运筹学基础">运筹学基础</a>
+            <a  data-rel="脚手架&lt;---&gt;GitLab">GitLab</a>
             
         </span>
         
-        
-        <span class="tag">
-            <i class="iconfont icon-tag"></i>
-            
-            <a class="color3">自考</a>
-            
-            <a class="color1">运筹学基础</a>
-            
-        </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-06-01 21:23:59'>2023-03-29 20:27</time>
+            发布时间 : <time class="date" title='最后更新: 2023-06-01 21:50:40'>2023-06-01 21:24</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:574</span>
+        <span>字数:549</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -699,7 +690,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-%E5%AF%BC%E8%AE%BA"><span class="toc-text">第一章 导论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%A6%82%E8%BF%B0"><span class="toc-text">1. 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%BF%90%E7%AD%B9%E5%AD%A6%E4%B8%8E%E7%AE%A1%E7%90%86%E5%86%B3%E7%AD%96"><span class="toc-text">1. 运筹学与管理决策</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%8E%E8%BF%90%E7%AD%B9%E5%AD%A6"><span class="toc-text">2. 计算机与运筹学</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%86%B3%E7%AD%96%E6%96%B9%E6%B3%95%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">3. 决策方法的分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%BA%94%E7%94%A8%E8%BF%90%E7%AD%B9%E5%AD%A6%E8%BF%9B%E8%A1%8C%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B%E7%9A%84%E5%87%A0%E4%B8%AA%E6%AD%A5%E9%AA%A4"><span class="toc-text">2. 应用运筹学进行决策过程的几个步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B%E7%9A%84%E5%85%AD%E4%B8%AA%E6%AD%A5%E9%AA%A4"><span class="toc-text">决策过程的六个步骤</span></a></li></ol></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -715,48 +706,82 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li><a href="#orgdf71e0f">第一章 导论</a></li>
-<li><a href="#org03b1e65">1. 概述</a><ol>
-<li><a href="#orgcd88ef5">1. 运筹学与管理决策</a></li>
-<li><a href="#org308864c">2. 计算机与运筹学</a></li>
-<li><a href="#org000a30b">3. 决策方法的分类</a></li>
-</ol>
+        <p>本文讲述如何使用 <code>Docker</code> 安装 <code>GitLab</code></p>
+<ol>
+<li><p>执行运行脚本</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span>  <span class="token parameter variable">-p</span> <span class="token number">6443</span>:443 <span class="token parameter variable">-p</span> <span class="token number">680</span>:80 <span class="token parameter variable">-p</span> <span class="token number">6222</span>:22 <span class="token parameter variable">--name</span> gitlab <span class="token parameter variable">--restart</span> always <span class="token parameter variable">-v</span> /gitlab/config:/etc/gitlab <span class="token parameter variable">-v</span> /gitlab/logs:/var/log/gitlab <span class="token parameter variable">-v</span> /gitlab/data:/var/opt/gitlab <span class="token parameter variable">--name</span> gitlab gitlab/gitlab-ce
+<span class="token comment"># -p 6222 为 Git Clone 时候ssh的端口</span>
+<span class="token comment"># -p 443 一般无需设置，除非直接对外提供https服务，一般我们用 Nginx 之内的反向代理</span>
+<span class="token comment"># -d：后台运行</span>
+<span class="token comment"># -p：将容器内部端口向外映射</span>
+<span class="token comment"># --name：命名容器名称</span>
+<span class="token comment"># -v：将容器内数据文件夹或者日志、配置等文件夹挂载到宿主机指定目录</span></code></pre>
 </li>
-<li><a href="#org2a3606a">2. 应用运筹学进行决策过程的几个步骤</a><ol>
-<li><a href="#org743c005">决策过程的六个步骤</a></li>
-</ol>
+<li><p>配置<br>按上面的方式，<code>GitLab</code> 容器运行没问题，但在 <code>GitLab</code> 上创建项目的时候，生成项目的 <code>URL</code> 访问地址是按容器的 <code>HostName</code> 来生成的，也就是容器的 <code>ID</code>。作为 <code>GitLab</code> 服务器，我们需要一个固定的 <code>URL</code> 访问地址，于是需要配置 <code>GitLab.rb</code>（宿主机路径：<code>/gitlab/config/gitlab.rb</code>）。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># gitlab.rb文件内容默认全是注释</span>
+<span class="token function">vim</span> /home/gitlab/config/gitlab.rb</code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置http协议所使用的访问地址,不加端口号默认为80</span>
+external_url <span class="token string">'http://gitlab.xxx.com'</span>
+
+<span class="token comment"># 配置ssh协议所使用的访问地址和端口</span>
+gitlab_rails<span class="token punctuation">[</span><span class="token string">'gitlab_ssh_host'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'gitlab.xxx.com'</span>
+gitlab_rails<span class="token punctuation">[</span><span class="token string">'gitlab_shell_ssh_port'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">6222</span> <span class="token comment"># 此端口是 run 时 22 端口映射的 6222 端口</span>
+:wq <span class="token comment">#保存配置文件并退出</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 重启 gitlab 容器</span>
+<span class="token function">docker</span> restart gitlab</code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 配置 Nginx 反向代理</span>
+<span class="token function">vim</span> /etc/nginx/conf.d/gitlab.xxx.com.conf
+
+<span class="token comment"># 内容</span>
+server <span class="token punctuation">{</span>
+    listen       <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name gitlab.xxx.com<span class="token punctuation">;</span>
+    rewrite ^<span class="token punctuation">(</span>.*<span class="token punctuation">)</span>$ https://gitlab.xxx.com<span class="token variable">$1</span> permanent<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+server <span class="token punctuation">{</span>
+    listen <span class="token number">443</span> ssl<span class="token punctuation">;</span>	
+    server_name gitlab.xxx.com<span class="token punctuation">;</span>
+
+    ssl_certificate <span class="token string">"fullchain.pem"</span><span class="token punctuation">;</span>
+    ssl_certificate_key <span class="token string">"privkey.pem"</span><span class="token punctuation">;</span>
+    ssl_session_cache shared:SSL:1m<span class="token punctuation">;</span>
+    ssl_session_timeout  10m<span class="token punctuation">;</span>
+    ssl_ciphers HIGH:<span class="token operator">!</span>aNULL:<span class="token operator">!</span>MD5<span class="token punctuation">;</span>
+    ssl_prefer_server_ciphers on<span class="token punctuation">;</span>
+
+    location / <span class="token punctuation">{</span>
+      <span class="token comment">## check for goget AND /namespace/project</span>
+   	   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$args</span> ~* <span class="token string">"^go-get=1"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token builtin class-name">set</span> <span class="token variable">$condition</span> goget<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$uri</span> ~ ^/<span class="token punctuation">(</span><span class="token punctuation">[</span>a-zA-Z0-9_-<span class="token punctuation">]</span>+<span class="token punctuation">)</span>/<span class="token punctuation">(</span><span class="token punctuation">[</span>a-zA-Z0-9_-<span class="token punctuation">]</span>+<span class="token punctuation">)</span>$<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token builtin class-name">set</span> <span class="token variable">$condition</span> <span class="token string">"<span class="token variable">${condition}</span>path"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token variable">$condition</span> <span class="token operator">=</span> gogetpath<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token builtin class-name">return</span> <span class="token number">200</span> <span class="token string">"&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta content='gitlab.xxx.com<span class="token variable">$uri</span> git ssh://git@gitlab.xxx.com:6222<span class="token variable">$uri</span>.git' name='go-import'&gt;&lt;/head&gt;&lt;/html&gt;"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        proxy_pass http://127.0.0.1:680<span class="token punctuation">;</span>
+       	proxy_http_version <span class="token number">1.1</span><span class="token punctuation">;</span>
+        proxy_set_header Upgrade <span class="token variable">$http_upgrade</span><span class="token punctuation">;</span>
+        proxy_set_header Connection keep-alive<span class="token punctuation">;</span>
+        proxy_set_header Host <span class="token variable">$host</span><span class="token punctuation">;</span>
+        proxy_set_header X-Forwarded-For  <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
+        proxy_cache_bypass <span class="token variable">$http_upgrade</span><span class="token punctuation">;</span>
+        client_max_body_size 1024m<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment"># Nginx reload</span>
+nginx <span class="token parameter variable">-s</span> reload</code></pre>
+</li>
+<li><p>其他<br>第一次访问时候一般会设置 <code>Root</code> 的密码，之后就不需要了。另外建议使用 <code>Nginx</code> 反向代理 <code>GitLab</code> 的 <code>HTTP</code> 请求。</p>
 </li>
 </ol>
-<p><a id="orgdf71e0f"></a></p>
-<h1 id="第一章-导论"><a href="#第一章-导论" class="headerlink" title="第一章 导论"></a>第一章 导论</h1><p><a id="org03b1e65"></a></p>
-<h1 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h1><p><a id="orgcd88ef5"></a></p>
-<h2 id="1-运筹学与管理决策"><a href="#1-运筹学与管理决策" class="headerlink" title="1. 运筹学与管理决策"></a>1. 运筹学与管理决策</h2><ol>
-<li>概念：运筹学是一门研究如何有效地组织和管理人机系统的科学。在一个复杂的人机系统中，涉及到大量人力和其他资源的统筹组织安排，运筹学应用分析的、经验的和数量的方法，对各种可供选择的方案进行比较评价，为制定最优的管理决策提供数量上的依据。</li>
-</ol>
-<p>在管理领域，运筹学也是对管理决策进行决策的计量方法。</p>
-<ol>
-<li>定义：运筹学利用计划方法和有关多学科的要求，把复杂功能关系表示成数学模型，其目地是通过定量分析为决策和揭露新问题提供数量依据。</li>
-</ol>
-<p><a id="org308864c"></a></p>
-<h2 id="2-计算机与运筹学"><a href="#2-计算机与运筹学" class="headerlink" title="2. 计算机与运筹学"></a>2. 计算机与运筹学</h2><p>计算机是运筹学发展的基本因素。</p>
-<p><a id="org000a30b"></a></p>
-<h2 id="3-决策方法的分类"><a href="#3-决策方法的分类" class="headerlink" title="3. 决策方法的分类"></a>3. 决策方法的分类</h2><p>分类：定性决策、定量决策、混合型决策。</p>
-<ol>
-<li>定性决策<br>基本上根据决策人员的主观经验或感受到的感觉或知识而制定的决策;</li>
-<li>定量决策<br>借助于某些正规的计量方法而做出的决策，称为定量决策;</li>
-<li>混合型决策<br>必须运用定性和定量两种方法才能制定的决策;</li>
-</ol>
-<p>采用有关计量方法的情况：</p>
-<ol>
-<li>要解决的问题是复杂的并且有很多变量;</li>
-<li>说明能决策的问题的各种状况的数据是可以得到的;</li>
-<li>待决策问题的各项目标可以确定为各种数量关系;</li>
-<li>对应上述情况，有关的切实可行的模型是当前可以建立起来的;</li>
-</ol>
-<p><a id="org2a3606a"></a></p>
-<h1 id="2-应用运筹学进行决策过程的几个步骤"><a href="#2-应用运筹学进行决策过程的几个步骤" class="headerlink" title="2. 应用运筹学进行决策过程的几个步骤"></a>2. 应用运筹学进行决策过程的几个步骤</h1><p><a id="org743c005"></a></p>
-<h2 id="决策过程的六个步骤"><a href="#决策过程的六个步骤" class="headerlink" title="决策过程的六个步骤"></a>决策过程的六个步骤</h2><p>观察待决策问题所处的环境 -&gt; 分析和定义待决策的问题 -&gt; 拟定模型 -&gt; 选择输入资料 -&gt; 提出解并验证合理性 -&gt; 实施最优解</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 email@wanbin.tech </span>
