@@ -655,12 +655,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-06-01 22:53:13'>2023-06-01 21:24</time>
+            发布时间 : <time class="date" title='最后更新: 2023-06-01 22:55:14'>2023-06-01 21:24</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:549</span>
+        <span>字数:561</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -779,7 +779,7 @@ server <span class="token punctuation">{</span>
 <span class="token comment"># Nginx reload</span>
 nginx <span class="token parameter variable">-s</span> reload</code></pre>
 </li>
-<li><p>其他<br>通过查看文件 <code>/gitlab/initial_root_password</code> 可获取初始密码，登陆完后建议更改。另外建议使用 <code>Nginx</code> 反向代理 <code>GitLab</code> 的 <code>HTTP</code> 请求。</p>
+<li><p>其他<br>通过命令 <code>docker exec -it 容器名字或容器ID grep 'Password:' /etc/gitlab/initial_root_password</code> 可获取初始密码，登陆完后建议更改。另外建议使用 <code>Nginx</code> 反向代理 <code>GitLab</code> 的 <code>HTTP</code> 请求。</p>
 </li>
 </ol>
 

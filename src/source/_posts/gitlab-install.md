@@ -93,4 +93,4 @@ categories:
    ```
 
 3. 其他
-   通过查看文件 `/gitlab/initial_root_password` 可获取初始密码，登陆完后建议更改。另外建议使用 `Nginx` 反向代理 `GitLab` 的 `HTTP` 请求。
+   通过命令 `docker exec -it 容器名字或容器ID grep 'Password:' /etc/gitlab/initial_root_password` 可获取初始密码，登陆完后建议更改。另外建议使用 `Nginx` 反向代理 `GitLab` 的 `HTTP` 请求。
