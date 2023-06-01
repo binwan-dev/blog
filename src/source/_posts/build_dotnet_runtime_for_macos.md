@@ -1,5 +1,6 @@
 ---
 title: 在MacOS中编译dotnet/runtime源代码
+date: 2022-11-16 22:28:33
 categories: 
 - dotnet/runtime
 ---

@@ -1,5 +1,6 @@
 ---
 title: K8S 手动续期证书  
+date: 2022-07-20 22:28:33
 categories: 
 - Kubenetes
 ---
