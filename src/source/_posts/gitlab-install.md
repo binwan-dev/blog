@@ -93,4 +93,4 @@ categories:
    ```
 
 3. 其他
-   第一次访问时候一般会设置 `Root` 的密码，之后就不需要了。另外建议使用 `Nginx` 反向代理 `GitLab` 的 `HTTP` 请求。
+   通过查看文件 `/gitlab/initial_root_password` 可获取初始密码，登陆完后建议更改。另外建议使用 `Nginx` 反向代理 `GitLab` 的 `HTTP` 请求。
