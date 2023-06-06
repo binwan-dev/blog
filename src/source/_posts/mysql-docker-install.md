@@ -23,5 +23,5 @@ categories:
    docker stop mysql_test && docker rm mysql_test
    
    # 安装 mysql
-   docker run -d -p <your mysql port>:3306 -e MYSQL_ROOT_PASSWORD=<your mysql root password> -v /<your mysql storage path>/mysql/conf:/etc/mysql -v /<your mysql storage path>/mysql/data:/var/lib/mysql --name <mysql-name> mysql:<tag>
+   docker run -d -p <your mysql port>:3306 -e MYSQL_ROOT_PASSWORD=<your mysql root password> -v /<your mysql storage path>/mysql/conf/my.cnf:/etc/mysql/my.cnf -v /<your mysql storage path>/mysql/data:/var/lib/mysql --name <mysql-name> mysql:<tag>
    ```
