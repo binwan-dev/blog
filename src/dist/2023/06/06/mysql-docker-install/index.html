@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Kubeadm 基本使用 | BinWan-Blogs</title>
+  <title>mysql_docker_install | BinWan-Blogs</title>
   <meta name="keywords" content="">
-  <meta name="description" content="Kubeadm 基本使用 | BinWan-Blogs">
+  <meta name="description" content="mysql_docker_install | BinWan-Blogs">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="Oops～，我崩溃了！找不到你想要的页面 :(">
 <meta property="og:type" content="website">
@@ -658,9 +658,9 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-kubeadm_used" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-mysql-docker-install" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Kubeadm 基本使用</h1>
+        <h1 class="article-title">mysql_docker_install</h1>
     
     <div class="article-meta">
         
@@ -670,7 +670,9 @@
             <i class="iconfont icon-category"></i>
             
             
-            <a  data-rel="Kubenetes">Kubenetes</a>
+            <a  data-rel="脚手架">脚手架</a> > 
+            
+            <a  data-rel="脚手架&lt;---&gt;MySQL">MySQL</a>
             
         </span>
         
@@ -678,12 +680,12 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-06-01 21:23:59'>2022-05-12 22:28</time>
+            发布时间 : <time class="date" title='最后更新: 2023-06-06 19:06:25'>2023-06-06 18:50</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:96</span>
+        <span>字数:202</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -713,7 +715,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Token"><span class="toc-text">Token</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Cert"><span class="toc-text">Cert</span></a></li></ol>
+        
     
 <style>
     .left-col .switch-btn,
@@ -729,15 +731,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h1><ol>
-<li>查看有效Token列表<pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm token list</code></pre></li>
-<li>生成 Join 集群 Token<pre class="language-bash" data-language="bash"><code class="language-bash">kubadm token create --print-join-command  <span class="token comment"># 默认有效期24小时,若想久一些可以结合–ttl参数,设为0则用不过期</span></code></pre></li>
-</ol>
-<h1 id="Cert"><a href="#Cert" class="headerlink" title="Cert"></a>Cert</h1><ol>
-<li>生成 cert-hash<pre class="language-bash" data-language="bash"><code class="language-bash">openssl x509 <span class="token parameter variable">-pubkey</span> <span class="token parameter variable">-in</span> /etc/kubernetes/pki/ca.crt <span class="token operator">|</span> openssl rsa <span class="token parameter variable">-pubin</span> <span class="token parameter variable">-outform</span> der <span class="token operator"><span class="token file-descriptor important">2</span>&gt;</span>/dev/null <span class="token operator">|</span> openssl dgst <span class="token parameter variable">-sha256</span> <span class="token parameter variable">-hex</span> <span class="token operator">|</span> <span class="token function">sed</span> <span class="token string">'s/^.* //'</span></code></pre></li>
-<li>查看 certificate-key <pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm certs certificate-key</code></pre></li>
-<li>刷新 certificate-key <pre class="language-bash" data-language="bash"><code class="language-bash">kubeadm init phase upload-certs --upload-certs</code></pre></li>
-</ol>
+        <p>本文主要介绍如何使用 <code>Docker</code> 安装 <code>MySQL</code></p>
+<p>访问 MySQL 镜像库地址：<a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql?tab=tags">https://hub.docker.com/_/mysql?tab=tags</a> 。</p>
+<p>可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 mysql:latest 。</p>
+<p>安装<br>   </p><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> search mysql <span class="token comment"># 搜索 mysql 版本</span>
+
+<span class="token comment"># 安装测试版本用来拷贝配置文件</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> mysql_test mysql:<span class="token operator">&lt;</span>tag<span class="token operator">&gt;</span> 
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/conf <span class="token comment"># 创建本地 mysql 配置文件夹</span>
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/data <span class="token comment"># 创建本地 mysql 数据文件夹</span>
+<span class="token function">docker</span> <span class="token function">cp</span> mysql_test:/etc/mysql/my.cnf /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/conf
+<span class="token function">docker</span> stop mysql_test <span class="token operator">&amp;&amp;</span> <span class="token function">docker</span> <span class="token function">rm</span> mysql_test
+
+<span class="token comment"># 安装 mysql</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token operator">&lt;</span>your mysql port<span class="token operator">&gt;</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token operator">&lt;</span>your mysql root password<span class="token operator">&gt;</span> <span class="token parameter variable">-v</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/conf:/etc/mysql <span class="token parameter variable">-v</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/data:/var/lib/mysql <span class="token parameter variable">--name</span> <span class="token operator">&lt;</span>mysql-name<span class="token operator">&gt;</span> mysql:<span class="token operator">&lt;</span>tag<span class="token operator">&gt;</span></code></pre><p></p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 email@wanbin.tech </span>

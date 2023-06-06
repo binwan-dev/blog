@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>mysql_docker_install</title>
+      <link href="/2023/06/06/mysql-docker-install/"/>
+      <url>/2023/06/06/mysql-docker-install/</url>
+      
+        <content type="html"><![CDATA[<p>本文主要介绍如何使用 <code>Docker</code> 安装 <code>MySQL</code></p><p>访问 MySQL 镜像库地址：<a href="https://hub.docker.com/_/mysql?tab=tags">https://hub.docker.com/_/mysql?tab=tags</a> 。</p><p>可以通过 Sort by 查看其他版本的 MySQL，默认是最新版本 mysql:latest 。</p><p>安装<br>   </p><pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> search mysql <span class="token comment"># 搜索 mysql 版本</span><span class="token comment"># 安装测试版本用来拷贝配置文件</span><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> mysql_test mysql:<span class="token operator">&lt;</span>tag<span class="token operator">&gt;</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/conf <span class="token comment"># 创建本地 mysql 配置文件夹</span><span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/data <span class="token comment"># 创建本地 mysql 数据文件夹</span><span class="token function">docker</span> <span class="token function">cp</span> mysql_test:/etc/mysql/my.cnf /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/conf<span class="token function">docker</span> stop mysql_test <span class="token operator">&amp;&amp;</span> <span class="token function">docker</span> <span class="token function">rm</span> mysql_test<span class="token comment"># 安装 mysql</span><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token operator">&lt;</span>your mysql port<span class="token operator">&gt;</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token operator">&lt;</span>your mysql root password<span class="token operator">&gt;</span> <span class="token parameter variable">-v</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/conf:/etc/mysql <span class="token parameter variable">-v</span> /<span class="token operator">&lt;</span>your mysql storage path<span class="token operator">&gt;</span>/mysql/data:/var/lib/mysql <span class="token parameter variable">--name</span> <span class="token operator">&lt;</span>mysql-name<span class="token operator">&gt;</span> mysql:<span class="token operator">&lt;</span>tag<span class="token operator">&gt;</span></code></pre><p></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 脚手架 </category>
+          
+          <category> MySQL </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>GitLab 安装</title>
       <link href="/2023/06/01/gitlab-install/"/>
       <url>/2023/06/01/gitlab-install/</url>
