@@ -14,10 +14,8 @@ categories:
 
 安装
    ``` shell
-   docker search mysql # 搜索 mysql 版本
-   
    # 安装测试版本用来拷贝配置文件
-   docker run -d --name mysql_test mysql:<tag> 
+   docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name mysql_test mysql:<tag> 
    mkdir -p /<your mysql storage path>/mysql/conf # 创建本地 mysql 配置文件夹
    mkdir -p /<your mysql storage path>/mysql/data # 创建本地 mysql 数据文件夹
    docker cp mysql_test:/etc/mysql/my.cnf /<your mysql storage path>/mysql/conf
